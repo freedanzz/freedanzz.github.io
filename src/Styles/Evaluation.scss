@@ -1,0 +1,172 @@
+.wrapDancers {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: rgba(0,0,0,.5);
+  padding: 20px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  &:before {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100vh;
+    background-image: url('../Images/back.png');
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: blur(4px);
+  }
+  .wrapLeft {
+    width: 100%;
+    max-width: 500px;
+    .wrapTopToday,
+    .wrapTopDancers {
+      background-color: rgba($white, 0.9);
+      padding: 20px;
+      box-sizing: border-box;
+      span {
+        display: block;
+        padding: 10px 0;
+        color: rgba(0, 0, 0, 0.6);
+        text-align: right;
+      }
+      .head {
+        display: flex;
+        margin-bottom: 10px;
+        > div {
+          &:nth-child(1) {
+            width: 10%;
+            color: $color2;
+          }
+          &:nth-child(2) {
+            width: 30%;
+            color: $color2;
+          }
+          &:nth-child(3) {
+            width: 15%;
+            color: $color2;
+          }
+          &:nth-child(4),
+          &:nth-child(5),
+          &:nth-child(6),
+          &:nth-child(7),
+          &:nth-child(8) {
+            width: 10%;
+            text-align: center;
+            color: $color2;
+          }
+        }
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+        .item {
+          display: flex;
+          width: 100%;
+          padding: 5px 0;
+          border-bottom: 1px solid #dbdbdb;
+          color: rgba(0, 0, 0, 0.6);
+          position: relative;
+          &:last-child {
+            border: none;;
+          }
+          &:first-child {
+            background-color: #ffbf00;
+            font-weight: bold;
+            &::before {
+              display: block;
+              content: '';
+              width: 22px;
+              height: 22px;
+              position: absolute;
+              right: -20px;
+              background-image: url('../Images/medal.png');
+              background-size: 22px;
+              background-position: center center;
+              background-repeat: no-repeat;
+            }
+          }
+          &:nth-child(2) {
+            background-color: #e3e4e5;
+            font-weight: bold;
+          }
+          &:nth-child(3) {
+            background-color: #bf8970;
+            font-weight: bold;
+          }
+          > div {
+            &:nth-child(1) {
+              width: 10%;
+              padding-left: 7px;
+              box-sizing: border-box;
+            }
+            &:nth-child(2) {
+              width: 30%;
+            }
+            &:nth-child(3) {
+              width: 15%;
+            }
+            &:nth-child(4),
+            &:nth-child(5),
+            &:nth-child(6),
+            &:nth-child(7),
+            &:nth-child(8) {
+              width: 10%;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+    form {
+      width: 100%;
+    }
+    .wrapTopDancers {
+      width: 100%;
+      background-color: rgba(255,255,255,0.9);
+      min-height: 250px;
+      padding: 10px 30px;
+      box-sizing: border-box;
+      margin-top: 20px;
+    }
+    .wrapToday {
+      width: 100%;
+    }
+  }
+  form {
+    width: calc(100% - 520px);
+    background-color: rgba(255,255,255,0.9);
+    padding: 20px 20px 40px 20px;
+    box-sizing: border-box;
+    &:nth-child(1) {
+      width: 100%;
+    }
+    .itemForm {
+      margin-bottom: 30px;
+      &.scores {
+        .Inputs {
+          width: 30%;
+          margin-bottom: 10px;
+          margin-right: 10px;
+        }
+      }
+    }
+    .Inputs {
+      width: 100%;
+      font-size: 15px;
+    }
+    label {
+      font-size: 15px;
+    }
+  }
+  .listDancers {
+    width: 100%;
+  }
+}
