@@ -11,11 +11,16 @@ h2 {
 }
 
 // HOME
-.wrapMainHome {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  img {
+.wrapScreenHome {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  .wrapMainHome {
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    img {
+      width: 100%;
+    }
   }
 }
