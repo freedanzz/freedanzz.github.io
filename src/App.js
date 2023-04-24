@@ -14,15 +14,17 @@ import UsersPage from './Pages/UsersPage';
  */
 
 import '../src/Styles/Global.scss';
+import Page404 from "./Pages/404Page";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<UsersPage />} />
+        <Route path="/users" element={<UsersPage />} />
         <Route path="/profits" element={<ProfitsUsers />} />
         <Route path="/tariff" element={<Tariff />} />
         <Route path="/evaluation" element={<Evaluation />} />
+        <Route path='*' exact={true} element={<Page404 />} />
       </Routes>
     </Router>
   );
