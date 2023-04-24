@@ -5,7 +5,7 @@ const Page404 = () => {
     return (
         <div className='wrapScreenHome'>
             <div className='wrapMainHome'>
-                <img src={ImgHome} />
+                <img src={ImgHome} alt='Home' />
             </div>
         </div>
     )
