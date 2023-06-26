@@ -1,13 +1,19 @@
 import React from 'react';
 import ImgHome from '../Images/home_opt.png';
+import { Helmet } from 'react-helmet';
 
 const Page404 = () => {
     return (
-        <div className='wrapScreenHome'>
-            <div className='wrapMainHome'>
-                <img src={ImgHome} alt='Home' />
+        <>
+            <Helmet>
+                <title>Freedanzz | Home</title>
+            </Helmet>
+            <div className='wrapScreenHome'>
+                <div className='wrapMainHome'>
+                    <img src={ImgHome} alt='Home' />
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 
