@@ -1,5 +1,6 @@
 import React from 'react';
 import SaveEvaluation from '../Components/Dancers/SaveEvaluation';
+// import SaveDancer from '../Components/Dancers/SaveDancer';
 import Services from '../Services/Services';
 import { Helmet } from 'react-helmet';
 import moment from 'moment';
@@ -168,7 +169,7 @@ class Evaluation extends React.Component {
       for(let i = 0; i < dates.length; i++) {
         const dancers = await sFirebase.getDancersToday(db, dates[i]);
         dancers.forEach((doc) => {
-          const existDancer = dancersWeek.findIndex(element => element.id_dancer == doc.data().id_dancer);
+          const existDancer = dancersWeek.findIndex(element => element.id_dancer === doc.data().id_dancer);
           if(existDancer !== -1) {
             dancersWeek[existDancer].ver = [...dancersWeek[existDancer].ver, doc.data().ver];
             dancersWeek[existDancer].pun = [...dancersWeek[existDancer].pun, doc.data().pun];
@@ -298,7 +299,7 @@ class Evaluation extends React.Component {
               {dancersToday}
             </div>
           </div>
-          {/* <SaveDancer state={this.state.success} saveDancer={this.handleSaveDancer} dancersToday={this.state.dancersToday} /> */}
+          {/*<SaveDancer state={this.state.success} saveDancer={this.handleSaveDancer} dancersToday={this.state.dancersToday} />*/}
           <div className="wrapTopDancers">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateRangePicker localeText={{ start: 'Desde', end: 'Hasta' }} onChange={(newDate) => {
