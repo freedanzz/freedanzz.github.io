@@ -1,7 +1,7 @@
 import React from 'react';
 import WP from '../../Images/ico_whatsapp.png';
 // import QRCode from 'react-qr-code';
-import { QRCode } from 'react-qrcode-logo';
+// import { QRCode } from 'react-qrcode-logo';
 
 const splitDate = (date) => {
   if(date !== undefined) {
@@ -21,7 +21,7 @@ const DetailUser = (props) => {
   return (
     <div className='detailUser'>
       <div className='image'>
-        <img src={image} />
+        <img src={image} alt='Imagen de usuario' />
       </div>
       <div className='contentUser'>
         <h2>{props.user['Nombres']} {props.user['Apellidos']}</h2>
@@ -37,7 +37,7 @@ const DetailUser = (props) => {
           </div>
         </div>
         <div className='contact' onClick={() => window.open(`https://wa.me/57${props.user['Número de contacto ( Celular )']}?text=${messageUser}`, "_blank")}>
-          Escribir <img width="25" src={WP} />
+          Escribir <img width="25" src={WP} alt='Whatsapp' />
         </div>
         <div>
           Debe pagar los días {splitDate(props.user["Marca temporal"])} de cada mes.

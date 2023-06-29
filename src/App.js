@@ -15,6 +15,8 @@ import UsersPage from './Pages/UsersPage';
 
 import '../src/Styles/Global.scss';
 import Page404 from "./Pages/404Page";
+import LoginPage from "./Pages/Login";
+import Home from "./Pages/Dancer/Home";
 
 function App() {
   return (
@@ -24,6 +26,11 @@ function App() {
         <Route path="/profits" element={<ProfitsUsers />} />
         <Route path="/tariff" element={<Tariff />} />
         <Route path="/evaluation" element={<Evaluation />} />
+        {/**
+         *  Pages Dancers
+         */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path='*' exact={true} element={<Page404 />} />
       </Routes>
     </Router>

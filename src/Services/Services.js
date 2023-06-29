@@ -47,6 +47,12 @@ class Services {
     return getDancers;
   }
 
+  getUserLoginDB = async (db, username) => {
+    const queryScore = query(collection(db, "dancers"), where("username", "==", username));
+    const querySnapshot = await getDocs(queryScore);
+    return querySnapshot;
+  }
+
 }
 
 export default Services;
