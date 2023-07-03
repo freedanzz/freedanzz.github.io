@@ -5,6 +5,7 @@ import Services from '../Services/Services';
 import UserLogin from '../Components/Users/Forms/Login';
 import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { Helmet } from 'react-helmet';
 
 const sFirebase = new Services();
 class LoginPage extends React.Component {
@@ -15,6 +16,8 @@ class LoginPage extends React.Component {
     };
 
     componentDidMount () {
+        const hashedPassword = bcrypt.hashSync('1066598567', 10);
+        console.log("Pass", hashedPassword);
     }
 
     getDatabaseFB = async () => {
@@ -34,6 +37,7 @@ class LoginPage extends React.Component {
             dancersArray.push({
                 user_id: doc.id,
                 names: doc.data().names,
+                level: doc.data().level,
                 username: doc.data().username,
                 password: doc.data().password
             })
@@ -70,6 +74,9 @@ class LoginPage extends React.Component {
         }
         return (
             <>
+                <Helmet>
+                    <title>Freedanz | Ingreso</title>
+                </Helmet>
                 <UserLogin login={this.validateLogin} messageForm={this.state.messageErrorForm} stateLogin={this.state.stateLogin} />
             </>
         )

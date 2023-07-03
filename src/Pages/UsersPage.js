@@ -23,7 +23,7 @@ class UsersPage extends React.Component {
     return (
       <>
         <Helmet>
-          <title>Freedanzz | Usuarios</title>
+          <title>Freedanz | Usuarios</title>
         </Helmet>
         <div className='wrapUsers'>
           <div className="wrapLeft">

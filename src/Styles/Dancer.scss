@@ -1,5 +1,99 @@
 .wrapDancer {
     width: 100%;
-    padding: 20px;
     box-sizing: border-box;
+    .dancerProfile {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 50vh;
+        background-image: url('https://picsum.photos/360?blur=2&random=1');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        z-index: 2;
+        &::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.5);
+            position: absolute;
+            z-index: -1;
+        }
+        .dancerImage {
+            width: 150px;
+            height: 150px;
+            border-radius: 100%;
+            //border: 3px solid $color2;
+            overflow: hidden;
+        }
+        .nameDancer {
+            width: 100%;
+            font-size: 30px;
+            text-align: center;
+            color: #FFFFFF;
+            margin-top: 10px;
+            .levelDancer {
+                font-size: 20px;
+                .level {
+                    &-legion {
+                        font-weight: bold;
+                        color: #2b94f6;
+                    }
+                    &-half {
+                        font-weight: bold;
+                        color: #ff11a3;
+                    }
+                    &-beginner {
+                        font-weight: bold;
+                        color: #5a008d;
+                    }
+                }
+            }
+        }
+    }
+    .dancerScoreGeneral {
+        .titleDancer {
+            width: 100%;
+            padding: 10px 0 20px 20px;
+        }
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        width: calc(100% - 40px);
+        margin: 0 auto;
+        padding: 10px;
+        position: relative;
+        box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.1);
+        margin-top: -40px;
+        z-index: 3;
+        background-color: $white;
+        border-radius: 5px;
+        .itemScore {
+            display: flex;
+            width: calc(20% - 1px);
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid #CCC;
+            &:last-child {
+                border-right: none;
+            }
+            .score {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 18px;
+                animation: all ease-in-out .5s;
+                .valueScore {
+                    position: absolute;
+                }
+            }
+            .scoreText {
+                font-size: 11px;
+            }
+        }
+    }
 }

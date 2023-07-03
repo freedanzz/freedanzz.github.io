@@ -149,7 +149,10 @@ class Evaluation extends React.Component {
     for(let i = 0; i < scores.length; i++) {
       total = parseInt(total) + parseInt(scores[i]);
     }
-    return Math.round(total / scores.length);
+    // Return porcent range (1-5)
+    // return Math.round(total / scores.length);
+
+    return total;
   }
 
   getDatesRangeEvaluation = async (start, end) => {
@@ -200,7 +203,8 @@ class Evaluation extends React.Component {
         dancersWeek[i].res = this.totalScoreDancers(dancersWeek[i].res);
         dancersWeek[i].pas = this.totalScoreDancers(dancersWeek[i].pas);
         dancersWeek[i].rig = this.totalScoreDancers(dancersWeek[i].rig);
-        dancersWeek[i].score = Math.round(parseInt(dancersWeek[i].ver) + parseInt(dancersWeek[i].pun) + parseInt(dancersWeek[i].res) + parseInt(dancersWeek[i].pas) + parseInt(dancersWeek[i].rig) * 100 / 125);
+        //dancersWeek[i].score = parseInt(dancersWeek[i].ver) + parseInt(dancersWeek[i].pun) + parseInt(dancersWeek[i].res) + parseInt(dancersWeek[i].pas) + parseInt(dancersWeek[i].rig) * 100 / 125;
+        dancersWeek[i].score = parseInt(dancersWeek[i].ver) + parseInt(dancersWeek[i].pun) + parseInt(dancersWeek[i].res) + parseInt(dancersWeek[i].pas) + parseInt(dancersWeek[i].rig);
       }
 
       console.log("Array dates", dancersWeek);
