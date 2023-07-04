@@ -1,6 +1,7 @@
 import React from 'react';
 import ImgHome from '../Images/home_opt.png';
 import { Helmet } from 'react-helmet';
+import DownloadButton from '../Utils/DownloadPWA';
 
 const Page404 = () => {
     return (
@@ -12,6 +13,7 @@ const Page404 = () => {
                 <div className='wrapMainHome'>
                     <img src={ImgHome} alt='Home' />
                 </div>
+                <DownloadButton />
             </div>
         </>
     )

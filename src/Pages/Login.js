@@ -51,12 +51,10 @@ class LoginPage extends React.Component {
                  * Create sesion (Cookie) dancer
                  */
                 Cookies.set('dancer', JSON.stringify(dancersArray[0]), { expires: 1 });
-                console.log("Logueado");
                 // La contraseña coincide, el inicio de sesión es exitoso
                 // Realiza las acciones necesarias, como redireccionar al usuario a su perfil, establecer el estado de autenticación, etc.
             } else {
                 this.setState({messageErrorForm: 'Contraseña incorrecta, por favor verificar.', stateLogin: 0 });
-                console.log("No inicio sesión");
                 // La contraseña no coincide, el inicio de sesión falla
                 // Puedes mostrar un mensaje de error al usuario o realizar otras acciones
             }
@@ -67,10 +65,16 @@ class LoginPage extends React.Component {
     }
 
     render () {
-        if(this.state.stateLogin === 1) {
+        if(Cookies.get('dancer') == undefined) {
+            if(this.state.stateLogin === 1) {
+                return (
+                    <Navigate to="/home" />
+                )
+            }
+        } else {
             return (
                 <Navigate to="/home" />
-            )
+            );
         }
         return (
             <>

@@ -22,6 +22,14 @@
             position: absolute;
             z-index: -1;
         }
+        .logout {
+            display: block;
+            color: $white;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            text-decoration: underline;
+        }
         .dancerImage {
             width: 150px;
             height: 150px;

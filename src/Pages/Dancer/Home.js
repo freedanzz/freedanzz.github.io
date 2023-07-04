@@ -6,6 +6,8 @@ import moment from 'moment';
 import { Navigate } from 'react-router-dom';
 import Services from '../../Services/Services';
 import { Box, CircularProgress, LinearProgress } from '@mui/material';
+import IncrementScore from '../../Utils/Increment';
+import CircularProgressAnimation from '../../Utils/CircularAnimation';
 
 const sFirebase = new Services();
 
@@ -21,6 +23,11 @@ class Home extends React.Component {
         this.getScoreDancerWeek();
         
     }
+
+    logout = () => {
+        Cookies.remove('dancer');
+        window.location.href = '/#/login';
+    };
 
     getDatabaseFB = async () => {
         const FBConecction = await sFirebase.connectFirebase();
@@ -44,12 +51,12 @@ class Home extends React.Component {
 
         // AUTOMATIC PROCESS GET EVALUATION DANCERS TO WEEK
         const dayOfWeekName = moment().format('dddd');
-        // const getDayNumber = moment().day() == 0 ? 7 : moment().day();
-        const getDayNumber = 7;
+        const getDayNumber = moment().day() == 0 ? 7 : moment().day();
+        //const getDayNumber = 8;
         console.log("Dayyyy", dayOfWeekName);
         //let getDayMonth = parseInt(moment().format('DD'));
         let arraysDates = [];
-        for(let i = 1; i <= getDayNumber; i++) {
+        for(let i = 0; i < getDayNumber; i++) {
             // Back a day
             arraysDates.push(`${moment().subtract(i, 'days').format('DD/MM/YYYY')}`);
             //getDayMonth = getDayMonth - 1;
@@ -128,36 +135,36 @@ class Home extends React.Component {
                         <>
                             <div className='itemScore'>
                                 <div className='score'>
-                                    <IncrementAnimation targetValue={this.state.infoDancer.ver} duration={3000} />
-                                    <CircularProgress style={{color: '#FF0018'}} variant='determinate' value={(this.state.infoDancer.ver * 100) / 25} />
+                                    <IncrementScore targetValue={this.state.infoDancer.ver} />
+                                    <CircularProgressAnimation customColor='#FF0018' targetValue={(this.state.infoDancer.ver * 100) / 25} />
                                 </div>
                                 <div className='scoreText'>Versatilidad</div>
                             </div>
                             <div className='itemScore'>
                                 <div className='score'>
-                                    <IncrementAnimation targetValue={this.state.infoDancer.pun} duration={3000} />
-                                    <CircularProgress style={{color: '#FFA52C'}} variant='determinate' value={(this.state.infoDancer.pun * 100) / 25} />
+                                    <IncrementScore targetValue={this.state.infoDancer.pun} />
+                                    <CircularProgressAnimation customColor='#FFA52C' targetValue={(this.state.infoDancer.pun * 100) / 25} />
                                 </div>
                                 <div className='scoreText'>Puntualidad</div>
                             </div>
                             <div className='itemScore'>
                                 <div className='score'>
-                                    <IncrementAnimation targetValue={this.state.infoDancer.res} duration={3000} />
-                                    <CircularProgress style={{color: '#FFFF41'}} variant='determinate' value={(this.state.infoDancer.res * 100) / 25} />
+                                    <IncrementScore targetValue={this.state.infoDancer.res} />
+                                    <CircularProgressAnimation customColor='#FFFF41' targetValue={(this.state.infoDancer.res * 100) / 25} />
                                 </div>
                                 <div className='scoreText'>Responsabilidad</div>
                             </div>
                             <div className='itemScore'>
                                 <div className='score'>
-                                    <IncrementAnimation targetValue={this.state.infoDancer.pas} duration={3000} />
-                                    <CircularProgress style={{color: '#008018'}} variant='determinate' value={(this.state.infoDancer.pas * 100) / 25} />
+                                    <IncrementScore targetValue={this.state.infoDancer.pas} />
+                                    <CircularProgressAnimation customColor='#008018' targetValue={(this.state.infoDancer.pas * 100) / 25} />
                                 </div>
                                 <div className='scoreText'>Pasión</div>
                             </div>
                             <div className='itemScore'>
                                 <div className='score'>
-                                    <IncrementAnimation targetValue={this.state.infoDancer.rig} duration={3000} />
-                                    <CircularProgress style={{color: '#0000F9'}} variant='determinate' value={(this.state.infoDancer.rig * 100) / 25} />
+                                    <IncrementScore targetValue={this.state.infoDancer.rig} />
+                                    <CircularProgressAnimation customColor='#0000F9' targetValue={(this.state.infoDancer.rig * 100) / 25} />
                                 </div>
                                 <div className='scoreText'>Rigurosidad</div>
                             </div>
@@ -167,6 +174,7 @@ class Home extends React.Component {
                 return (
                     <div className='wrapDancer'>
                         <div className='dancerProfile'>
+                            <span className='logout' onClick={() => this.logout()}>Cerrar sesión</span>
                             <div className='dancerImage'>
                                 <img width={150} src={`https://ui-avatars.com/api/?name=${this.state.dancer.names.split(" ").join("+")}`} />
                             </div>
