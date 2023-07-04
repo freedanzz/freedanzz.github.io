@@ -104,4 +104,37 @@
             }
         }
     }
+    .progressWeekDancer {
+        .backMedalTop {
+            display: flex;
+            width: 65px;
+            height: 65px;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 3px;
+            box-sizing: border-box;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0 auto;
+            font-size: 20px;
+            font-weight: bold;
+            &.low {
+                background-image: url('../Images/topMedalLow.png');
+                font-size: 15px;
+                padding-bottom: 7px;
+            }
+            &.top {
+                background-image: url('../Images/topMedal.png');
+            }
+        }
+        .textTopWeek {
+            text-align: center;
+        }
+    }
+    .evaluationToday {
+        padding: 0 10px;
+        margin-top: 20px;
+        .title {
+        }
+    }
 }

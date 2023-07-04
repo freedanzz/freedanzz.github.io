@@ -16,11 +16,13 @@ class Home extends React.Component {
     
     state = {
         dancer: null,
-        infoDancer: null
+        infoDancer: null,
+        dancersToday: null
     };
 
     componentDidMount() {
         this.getValueCookieUser();
+        this.getEvaluationToday();
         this.getScoreDancerWeek();
         
     }
@@ -47,9 +49,39 @@ class Home extends React.Component {
         return total;
     }
 
+    getEvaluationToday = async (dateEva) => {
+        this.setState({loading: true});
+        const db = await this.getDatabaseFB();
+        const dateTransform = new Date(dateEva);
+        const getDatePicker =  dateEva !== null ? moment(dateTransform).format('DD/MM/YYYY') : moment().format("DD/MM/YYYY");
+        let dancerArray = [];
+        // FECHA MANUAL DEFINIDA => '10/04/2023'
+        const dancers = await sFirebase.getDancersToday(db, '10/04/2023');
+        dancers.forEach((doc) => {
+          dancerArray.push({
+            id_dancer: doc.data().id_dancer,
+            master: doc.data().master,
+            ver: doc.data().ver,
+            pun: doc.data().pun,
+            res: doc.data().res,
+            pas: doc.data().pas,
+            rig: doc.data().rig,
+            score: (parseInt(doc.data().ver) + parseInt(doc.data().pun) + parseInt(doc.data().res) + parseInt(doc.data().pas) + parseInt(doc.data().rig)) * 100 / 25
+          })
+        });
+    
+        for (let i=0; i < dancerArray.length; i++){
+          let danc = await sFirebase.getDancer(db,dancerArray[i].id_dancer);
+          dancerArray[i].names = danc.names;
+          dancerArray[i].level = danc.level;
+        }
+    
+        this.setState({dancersToday: {top: dancerArray.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, ...dancerArray.find(d => d.id_dancer == this.state.dancer.user_id)}, loading: false});
+        console.log("Dancer today calification", this.state.dancersToday);
+    }
+
     getScoreDancerWeek = async () => {
         const db = await this.getDatabaseFB();
-
         // AUTOMATIC PROCESS GET EVALUATION DANCERS TO WEEK
         const dayOfWeekName = moment().format('dddd');
         // const getDayNumber = moment().day() == 0 ? 7 : moment().day();
@@ -63,7 +95,6 @@ class Home extends React.Component {
             //getDayMonth = getDayMonth - 1;
         }
         console.log("dates", arraysDates);
-
         let dancersWeek = [];
         for(let i = 0; i < arraysDates.length; i++) {
             const dancers = await sFirebase.getDancersToday(db, arraysDates[i]);
@@ -101,7 +132,6 @@ class Home extends React.Component {
             dancersWeek[i].rig = this.totalScoreDancers(dancersWeek[i].rig);
             //dancersWeek[i].score = parseInt(dancersWeek[i].ver) + parseInt(dancersWeek[i].pun) + parseInt(dancersWeek[i].res) + parseInt(dancersWeek[i].pas) + parseInt(dancersWeek[i].rig) * 100 / 125;
             dancersWeek[i].score = parseInt(dancersWeek[i].ver) + parseInt(dancersWeek[i].pun) + parseInt(dancersWeek[i].res) + parseInt(dancersWeek[i].pas) + parseInt(dancersWeek[i].rig);
-
         }
         dancersWeek.sort((a, b) => a.score > b.score ? -1 : 1);
         const getCurrentDancer = {top: dancersWeek.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, ...dancersWeek.find(d => d.id_dancer == this.state.dancer.user_id)};
@@ -184,10 +214,10 @@ class Home extends React.Component {
 
                     topWeekDancer = (
                         <>
-                            <div>TOP de la semana:</div>
-                            <div>
+                            <div className={`backMedalTop ${this.state.infoDancer.top > 3 ? 'low' : 'top'}`}>
                                 <div>{this.state.infoDancer.top}</div>
                             </div>
+                            <div className='textTopWeek'><strong>TOP</strong> de la semana</div>
                         </>
                     )
                 }
@@ -213,6 +243,11 @@ class Home extends React.Component {
                         <div className='progressWeekDancer'>
                             {/*<CircularProgress variant='determinate' color='secondary' value={70} />*/}
                             {topWeekDancer}
+                        </div>
+                        <div className='evaluationToday'>
+                            <div className='title'>
+                                Mis calificaciones hoy
+                            </div>
                         </div>
                     </div>
                 )
