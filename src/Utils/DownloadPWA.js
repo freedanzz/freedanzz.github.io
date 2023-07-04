@@ -31,7 +31,7 @@ const DownloadButton = () => {
   };
 
   return (
-    <button onClick={handleInstall} disabled={!canInstall}>
+    <button className='downloadPWA' onClick={handleInstall} disabled={!canInstall}>
       Descargar PWA
     </button>
   );

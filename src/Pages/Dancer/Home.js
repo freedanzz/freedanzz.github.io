@@ -8,6 +8,7 @@ import Services from '../../Services/Services';
 import { Box, CircularProgress, LinearProgress } from '@mui/material';
 import IncrementScore from '../../Utils/Increment';
 import CircularProgressAnimation from '../../Utils/CircularAnimation';
+import Confetti from 'react-confetti';
 
 const sFirebase = new Services();
 
@@ -51,12 +52,12 @@ class Home extends React.Component {
 
         // AUTOMATIC PROCESS GET EVALUATION DANCERS TO WEEK
         const dayOfWeekName = moment().format('dddd');
-        const getDayNumber = moment().day() == 0 ? 7 : moment().day();
-        //const getDayNumber = 8;
+        // const getDayNumber = moment().day() == 0 ? 7 : moment().day();
+        const getDayNumber = 8;
         console.log("Dayyyy", dayOfWeekName);
         //let getDayMonth = parseInt(moment().format('DD'));
         let arraysDates = [];
-        for(let i = 0; i < getDayNumber; i++) {
+        for(let i = 0; i <= getDayNumber; i++) {
             // Back a day
             arraysDates.push(`${moment().subtract(i, 'days').format('DD/MM/YYYY')}`);
             //getDayMonth = getDayMonth - 1;
@@ -124,6 +125,8 @@ class Home extends React.Component {
         if(Cookies.get('dancer') !== undefined) {
             if(this.state.dancer !== null) {
                 let scoresDancer;
+                let topWeekDancer;
+                let celebrateConfetti;
                 if(this.state.infoDancer === null) {
                     scoresDancer = (
                     <Box sx={{ width: '100%' }}>
@@ -131,6 +134,14 @@ class Home extends React.Component {
                     </Box>
                   );
                 } else {
+                    celebrateConfetti = this.state.infoDancer.top > 0 && this.state.infoDancer.top <= 3 ?
+                        <Confetti
+                            width={window.innerWidth}
+                            height={window.innerHeight}
+                            style={{zIndex: 10}}
+                            recycle={false}
+                            numberOfPieces={500}
+                        /> : null;
                     scoresDancer = (
                         <>
                             <div className='itemScore'>
@@ -169,14 +180,24 @@ class Home extends React.Component {
                                 <div className='scoreText'>Rigurosidad</div>
                             </div>
                         </>
+                    );
+
+                    topWeekDancer = (
+                        <>
+                            <div>TOP de la semana:</div>
+                            <div>
+                                <div>{this.state.infoDancer.top}</div>
+                            </div>
+                        </>
                     )
                 }
                 return (
                     <div className='wrapDancer'>
+                        {celebrateConfetti}
                         <div className='dancerProfile'>
                             <span className='logout' onClick={() => this.logout()}>Cerrar sesión</span>
                             <div className='dancerImage'>
-                                <img width={150} src={`https://ui-avatars.com/api/?name=${this.state.dancer.names.split(" ").join("+")}`} />
+                                <img width={120} src={`https://ui-avatars.com/api/?name=${this.state.dancer.names.split(" ").join("+")}`} />
                             </div>
                             <div className='nameDancer'>
                                 Hola, {this.state.dancer.names} !
@@ -191,6 +212,7 @@ class Home extends React.Component {
                         </div>
                         <div className='progressWeekDancer'>
                             {/*<CircularProgress variant='determinate' color='secondary' value={70} />*/}
+                            {topWeekDancer}
                         </div>
                     </div>
                 )
