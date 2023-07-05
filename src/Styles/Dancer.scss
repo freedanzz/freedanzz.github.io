@@ -39,12 +39,12 @@
         }
         .nameDancer {
             width: 100%;
-            font-size: 30px;
+            font-size: toRem(30);
             text-align: center;
             color: #FFFFFF;
             margin-top: 10px;
             .levelDancer {
-                font-size: 20px;
+                font-size: toRem(20);
                 .level {
                     &-legion {
                         font-weight: bold;
@@ -93,14 +93,14 @@
                 align-items: center;
                 justify-content: center;
                 font-weight: bold;
-                font-size: 18px;
+                font-size: toRem(18);
                 animation: all ease-in-out .5s;
                 .valueScore {
                     position: absolute;
                 }
             }
             .scoreText {
-                font-size: 11px;
+                font-size: toRem(11);
             }
         }
     }
@@ -116,11 +116,11 @@
             background-repeat: no-repeat;
             background-size: cover;
             margin: 0 auto;
-            font-size: 20px;
+            font-size: toRem(20);
             font-weight: bold;
             &.low {
                 background-image: url('../Images/topMedalLow.png');
-                font-size: 15px;
+                font-size: toRem(15);
                 padding-bottom: 7px;
             }
             &.top {
@@ -132,9 +132,94 @@
         }
     }
     .evaluationToday {
+        display: flex;
         padding: 0 10px;
         margin-top: 20px;
+        flex-wrap: wrap;
         .title {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .scoresEvaluationToday {
+            display: flex;
+            width: 60%;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            .item {
+                display: flex;
+                flex-direction: column;
+                width: calc(100% / 3 - 5px);
+                height: 60px;
+                position: relative;
+                box-sizing: border-box;
+                overflow: hidden;
+                border-radius: 10px;
+                margin-bottom: 5px;
+                align-items: center;
+                justify-content: center;
+                margin-right: 5px;
+                box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+                &:after {
+                    display: block;
+                    content: '';
+                    width: 100%;
+                    height: 5px;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                }
+                .value {
+                    font-weight: bold;
+                    font-size: toRem(20);
+                }
+                .text {
+                    font-size: toRem(15);
+                    color: #666666;
+                }
+                &:nth-child(1) {
+                    &::after {
+                        background-color: #FF0018;
+                    }
+                }
+                &:nth-child(2) {
+                    &::after {
+                        background-color: #FFA52C;
+                    }
+                }
+                &:nth-child(3) {
+                    &::after {
+                        background-color: #FFFF41;
+                    }
+                }
+                &:nth-child(4) {
+                    &::after {
+                        background-color: #008018;
+                    }
+                }
+                &:nth-child(5) {
+                    &::after {
+                        background-color: #0000F9;
+                    }
+                }
+            }
+        }
+        .topTodayDancer {
+            display: flex;
+            width: 40%;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            align-self: center;
+            .titleTodayTop {
+                width: 100%;
+                text-align: center;
+                font-size: toRem(18);
+                font-weight: bold;
+            }
+            .top {
+                font-size: toRem(50);
+                font-weight: bold;
+            }
         }
     }
 }

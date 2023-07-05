@@ -1,6 +1,6 @@
 import React from 'react';
 import SaveEvaluation from '../Components/Dancers/SaveEvaluation';
-// import SaveDancer from '../Components/Dancers/SaveDancer';
+import SaveDancer from '../Components/Dancers/SaveDancer';
 import Services from '../Services/Services';
 import { Helmet } from 'react-helmet';
 import moment from 'moment';
@@ -302,7 +302,7 @@ class Evaluation extends React.Component {
               {dancersToday}
             </div>
           </div>
-          {/*<SaveDancer state={this.state.success} saveDancer={this.handleSaveDancer} dancersToday={this.state.dancersToday} />*/}
+          <SaveDancer state={this.state.success} saveDancer={this.handleSaveDancer} dancersToday={this.state.dancersToday} />
           <div className="wrapTopDancers">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateRangePicker localeText={{ start: 'Desde', end: 'Hasta' }} onChange={(newDate) => {

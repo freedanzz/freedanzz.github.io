@@ -53,10 +53,10 @@ class Home extends React.Component {
         this.setState({loading: true});
         const db = await this.getDatabaseFB();
         const dateTransform = new Date(dateEva);
-        const getDatePicker =  dateEva !== null ? moment(dateTransform).format('DD/MM/YYYY') : moment().format("DD/MM/YYYY");
+        const getDatePicker =  moment('04/07/2023', 'DD/MM/YYYY').format("DD/MM/YYYY");
         let dancerArray = [];
         // FECHA MANUAL DEFINIDA => '10/04/2023'
-        const dancers = await sFirebase.getDancersToday(db, '10/04/2023');
+        const dancers = await sFirebase.getDancersToday(db, getDatePicker);
         dancers.forEach((doc) => {
           dancerArray.push({
             id_dancer: doc.data().id_dancer,
@@ -75,21 +75,23 @@ class Home extends React.Component {
           dancerArray[i].names = danc.names;
           dancerArray[i].level = danc.level;
         }
-    
-        this.setState({dancersToday: {top: dancerArray.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, ...dancerArray.find(d => d.id_dancer == this.state.dancer.user_id)}, loading: false});
-        console.log("Dancer today calification", this.state.dancersToday);
+
+        dancerArray.sort((a, b) => a.score > b.score ? -1 : 1);
+        const getCurrentDancer = {top: dancerArray.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, ...dancerArray.find(d => d.id_dancer == this.state.dancer.user_id)};
+        console.log("Calificaciones de hoy", getCurrentDancer);
+        this.setState({dancersToday: getCurrentDancer, loading: false});
     }
 
     getScoreDancerWeek = async () => {
         const db = await this.getDatabaseFB();
         // AUTOMATIC PROCESS GET EVALUATION DANCERS TO WEEK
         const dayOfWeekName = moment().format('dddd');
-        // const getDayNumber = moment().day() == 0 ? 7 : moment().day();
-        const getDayNumber = 8;
+        const getDayNumber = moment().day() == 0 ? 7 : moment().day();
+        // const getDayNumber = 8;
         console.log("Dayyyy", dayOfWeekName);
         //let getDayMonth = parseInt(moment().format('DD'));
         let arraysDates = [];
-        for(let i = 0; i <= getDayNumber; i++) {
+        for(let i = 0; i < getDayNumber; i++) {
             // Back a day
             arraysDates.push(`${moment().subtract(i, 'days').format('DD/MM/YYYY')}`);
             //getDayMonth = getDayMonth - 1;
@@ -156,6 +158,7 @@ class Home extends React.Component {
             if(this.state.dancer !== null) {
                 let scoresDancer;
                 let topWeekDancer;
+                let evaluationDancerToday;
                 let celebrateConfetti;
                 if(this.state.infoDancer === null) {
                     scoresDancer = (
@@ -219,6 +222,31 @@ class Home extends React.Component {
                             </div>
                             <div className='textTopWeek'><strong>TOP</strong> de la semana</div>
                         </>
+                    );
+
+                    evaluationDancerToday = (
+                        <>
+                            <div className='item'>
+                                <div className='value'>{this.state.dancersToday.ver}</div>
+                                <div className='text'>VER</div>
+                            </div>
+                            <div className='item'>
+                                <div className='value'>{this.state.dancersToday.pun}</div>
+                                <div className='text'>PUN</div>
+                            </div>
+                            <div className='item'>
+                                <div className='value'>{this.state.dancersToday.res}</div>
+                                <div className='text'>RES</div>
+                            </div>
+                            <div className='item'>
+                                <div className='value'>{this.state.dancersToday.pas}</div>
+                                <div className='text'>PAS</div>
+                            </div>
+                            <div className='item'>
+                                <div className='value'>{this.state.dancersToday.rig}</div>
+                                <div className='text'>RIG</div>
+                            </div>
+                        </>
                     )
                 }
                 return (
@@ -247,6 +275,13 @@ class Home extends React.Component {
                         <div className='evaluationToday'>
                             <div className='title'>
                                 Mis calificaciones hoy
+                            </div>
+                            <div className='scoresEvaluationToday'>
+                                {evaluationDancerToday}
+                            </div>
+                            <div className='topTodayDancer'>
+                                <div className='titleTodayTop'>TOP</div>
+                                <div className='top'>#8</div>
                             </div>
                         </div>
                     </div>
