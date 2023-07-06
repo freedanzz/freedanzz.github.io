@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Cookies from 'js-cookie';
-import IncrementAnimation from '../../Components/Animation/Increment';
+import dayjs from 'dayjs';
 import moment from 'moment';
 import { Navigate } from 'react-router-dom';
 import Services from '../../Services/Services';
@@ -9,6 +10,7 @@ import { Box, CircularProgress, LinearProgress } from '@mui/material';
 import IncrementScore from '../../Utils/Increment';
 import CircularProgressAnimation from '../../Utils/CircularAnimation';
 import Confetti from 'react-confetti';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 
 const sFirebase = new Services();
 
@@ -53,7 +55,7 @@ class Home extends React.Component {
         this.setState({loading: true});
         const db = await this.getDatabaseFB();
         const dateTransform = new Date(dateEva);
-        const getDatePicker =  moment('04/07/2023', 'DD/MM/YYYY').format("DD/MM/YYYY");
+        const getDatePicker =  dateEva !== null ? moment(dateTransform).format('DD/MM/YYYY') : moment().format("DD/MM/YYYY");
         let dancerArray = [];
         // FECHA MANUAL DEFINIDA => '10/04/2023'
         const dancers = await sFirebase.getDancersToday(db, getDatePicker);
@@ -83,6 +85,7 @@ class Home extends React.Component {
     }
 
     getScoreDancerWeek = async () => {
+        this.setState({loading: true});
         const db = await this.getDatabaseFB();
         // AUTOMATIC PROCESS GET EVALUATION DANCERS TO WEEK
         const dayOfWeekName = moment().format('dddd');
@@ -139,7 +142,7 @@ class Home extends React.Component {
         const getCurrentDancer = {top: dancersWeek.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, ...dancersWeek.find(d => d.id_dancer == this.state.dancer.user_id)};
         console.log("Bailarines de la semana", dancersWeek);
         console.log("Posición de bailarín", getCurrentDancer);
-        this.setState({infoDancer: getCurrentDancer});
+        this.setState({infoDancer: getCurrentDancer, loading: false});
     }
 
     getValueCookieUser = async () => {
@@ -224,39 +227,46 @@ class Home extends React.Component {
                         </>
                     );
 
-                    evaluationDancerToday = (
+                    evaluationDancerToday = this.state.dancersToday.top > 0 ? (
                         <>
-                            <div className='item'>
-                                <div className='value'>{this.state.dancersToday.ver}</div>
-                                <div className='text'>VER</div>
+                            <div className='scoresEvaluationToday'>
+                                <div className='item'>
+                                    <div className='value'>{this.state.dancersToday.ver}</div>
+                                    <div className='text'>VER</div>
+                                </div>
+                                <div className='item'>
+                                    <div className='value'>{this.state.dancersToday.pun}</div>
+                                    <div className='text'>PUN</div>
+                                </div>
+                                <div className='item'>
+                                    <div className='value'>{this.state.dancersToday.res}</div>
+                                    <div className='text'>RES</div>
+                                </div>
+                                <div className='item'>
+                                    <div className='value'>{this.state.dancersToday.pas}</div>
+                                    <div className='text'>PAS</div>
+                                </div>
+                                <div className='item'>
+                                    <div className='value'>{this.state.dancersToday.rig}</div>
+                                    <div className='text'>RIG</div>
+                                </div>
                             </div>
-                            <div className='item'>
-                                <div className='value'>{this.state.dancersToday.pun}</div>
-                                <div className='text'>PUN</div>
-                            </div>
-                            <div className='item'>
-                                <div className='value'>{this.state.dancersToday.res}</div>
-                                <div className='text'>RES</div>
-                            </div>
-                            <div className='item'>
-                                <div className='value'>{this.state.dancersToday.pas}</div>
-                                <div className='text'>PAS</div>
-                            </div>
-                            <div className='item'>
-                                <div className='value'>{this.state.dancersToday.rig}</div>
-                                <div className='text'>RIG</div>
+                            <div className='topTodayDancer'>
+                                <div className='titleTodayTop'>TOP</div>
+                                <div className='top'>#{this.state.dancersToday.top}</div>
                             </div>
                         </>
-                    )
+                    ) : ( <div className='emptyDancerToday'>No hay calificaciones para este dia.</div> )
                 }
                 return (
                     <div className='wrapDancer'>
                         {celebrateConfetti}
-                        <div className='dancerProfile'>
+                        <div className='dancerProfile' style={{backgroundImage: `url(${this.state.dancer.image})`}}>
                             <span className='logout' onClick={() => this.logout()}>Cerrar sesión</span>
-                            <div className='dancerImage'>
+                            {/*<div className='dancerImage'>
                                 <img width={120} src={`https://ui-avatars.com/api/?name=${this.state.dancer.names.split(" ").join("+")}`} />
-                            </div>
+                                <img width={120} src={this.state.dancer.image} />
+                            </div>*/}
                             <div className='nameDancer'>
                                 Hola, {this.state.dancer.names} !
                                 <div className='levelDancer'>Bailarín <span className={'level-'+this.state.dancer.level.toLowerCase()}>{this.state.dancer.level}</span></div>
@@ -273,16 +283,28 @@ class Home extends React.Component {
                             {topWeekDancer}
                         </div>
                         <div className='evaluationToday'>
-                            <div className='title'>
-                                Mis calificaciones hoy
+                            <div className='wrapHeadEvaluationToday'>
+                                <h3>Mis calificaciones</h3>
+                                <div className='title'>
+                                    Buscar por fecha
+                                </div>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        label="Fecha"
+                                        format={'DD/MM/YYYY'}
+                                        defaultValue={dayjs(moment().format('DD/MM/YYYY'),'DD/MM/YYYY')}
+                                        onChange={(newValue) => {
+                                            this.getEvaluationToday(newValue);
+                                        }}
+                                    />
+                                </LocalizationProvider>
                             </div>
-                            <div className='scoresEvaluationToday'>
-                                {evaluationDancerToday}
-                            </div>
-                            <div className='topTodayDancer'>
-                                <div className='titleTodayTop'>TOP</div>
-                                <div className='top'>#8</div>
-                            </div>
+                            {
+                                this.state.loading || this.state.infoDancer  === null ?
+                                    <Box sx={{ width: '100%' }}>
+                                        <LinearProgress color='secondary' />
+                                    </Box> : evaluationDancerToday
+                            }
                         </div>
                     </div>
                 )

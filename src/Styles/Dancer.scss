@@ -8,7 +8,7 @@
         flex-wrap: wrap;
         width: 100%;
         height: 50vh;
-        background-image: url('https://picsum.photos/360?blur=2&random=1');
+        //background-image: url('https://picsum.photos/360?blur=2&random=1');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -133,12 +133,22 @@
     }
     .evaluationToday {
         display: flex;
-        padding: 0 10px;
-        margin-top: 20px;
         flex-wrap: wrap;
-        .title {
+        padding: 20px 10px 30px 10px;
+        .wrapHeadEvaluationToday {
+            display: flex;
             width: 100%;
-            margin-bottom: 10px;
+            margin: 20px 0;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            h3 {
+                width: 100%;
+            }
+            .MuiInputBase-root {
+                font-size: toRem(15);
+                height: 40px;
+            }
         }
         .scoresEvaluationToday {
             display: flex;
