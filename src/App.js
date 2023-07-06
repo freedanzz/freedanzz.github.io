@@ -22,10 +22,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/users" element={<UsersPage />} />
-        <Route path="/profits" element={<ProfitsUsers />} />
+        {/*<Route path="/users" element={<UsersPage />} />*/}
+        {/*<Route path="/profits" element={<ProfitsUsers />} />*/}
         <Route path="/tariff" element={<Tariff />} />
-        <Route path="/evaluation" element={<Evaluation />} />
+        {/*<Route path="/evaluation" element={<Evaluation />} />*/}
         {/**
          *  Pages Dancers
          */}

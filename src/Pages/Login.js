@@ -16,7 +16,7 @@ class LoginPage extends React.Component {
     };
 
     componentDidMount () {
-        const hashedPassword = bcrypt.hashSync('1064186699', 10);
+        const hashedPassword = bcrypt.hashSync('147672195', 10);
         console.log("Pass", hashedPassword);
     }
 
