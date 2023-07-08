@@ -55,7 +55,7 @@ class Home extends React.Component {
         this.setState({loading: true});
         const db = await this.getDatabaseFB();
         const dateTransform = new Date(dateEva);
-        const getDatePicker =  dateEva !== null ? moment(dateTransform).format('DD/MM/YYYY') : moment().format("DD/MM/YYYY");
+        const getDatePicker =  dateEva !== undefined ? moment(dateTransform).format('DD/MM/YYYY') : moment().format("DD/MM/YYYY");
         let dancerArray = [];
         // FECHA MANUAL DEFINIDA => '10/04/2023'
         const dancers = await sFirebase.getDancersToday(db, getDatePicker);

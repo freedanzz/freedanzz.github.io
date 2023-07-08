@@ -17,23 +17,62 @@ import '../src/Styles/Global.scss';
 import Page404 from "./Pages/404Page";
 import LoginPage from "./Pages/Login";
 import Home from "./Pages/Dancer/Home";
+import { useEffect } from "react";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import Services from "./Services/Services";
+
 
 function App() {
+  useEffect(() => {
+    const sFirebase = new Services();
+    const app = sFirebase.connectFirebase();
+    const messaging = getMessaging();
+    // Add the public key generated from the console here.
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+        getToken(messaging, { vapidKey: 'BJPzWOTY8OE7mFckOcdgOEl5Y7Bve4xzOA1C-BkH_ylerDf7-gEDyuTTCxe86VtVzuje356ZWXjOHgiNE76-ybw' }).then((currentToken) => {
+          if (currentToken) {
+            console.log("Token", currentToken);
+          } else {
+            // Show permission request UI
+            console.log('No registration token available. Request permission to generate one.');
+            // ...
+          }
+        }).catch((err) => {
+          console.log('An error occurred while retrieving token. ', err);
+          // ...
+        });
+        onMessage(messaging, (payload) => {
+          console.log('Message received. ', payload);
+          // ...
+        });
+      } else {
+        console.log('Notification permission reject.');
+      }
+    });
+    onMessage(messaging, (payload) => {
+      console.log('Message received. ', payload);
+      // ...
+    });
+  }, []);
   return (
-    <Router>
-      <Routes>
-        {/*<Route path="/users" element={<UsersPage />} />*/}
-        {/*<Route path="/profits" element={<ProfitsUsers />} />*/}
-        <Route path="/tariff" element={<Tariff />} />
-        {/*<Route path="/evaluation" element={<Evaluation />} />*/}
-        {/**
-         *  Pages Dancers
-         */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path='*' exact={true} element={<Page404 />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          {/*<Route path="/users" element={<UsersPage />} />*/}
+          {/*<Route path="/profits" element={<ProfitsUsers />} />*/}
+          <Route path="/tariff" element={<Tariff />} />
+          <Route path="/evaluation" element={<Evaluation />} />
+          {/**
+           *  Pages Dancers
+           */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/home" element={<Home />} />
+          <Route path='*' exact={true} element={<Page404 />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
