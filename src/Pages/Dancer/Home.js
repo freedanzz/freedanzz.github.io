@@ -79,7 +79,7 @@ class Home extends React.Component {
         }
 
         dancerArray.sort((a, b) => a.score > b.score ? -1 : 1);
-        const getCurrentDancer = {top: dancerArray.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, ...dancerArray.find(d => d.id_dancer == this.state.dancer.user_id)};
+        const getCurrentDancer = {top: dancerArray.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, totalTop: dancerArray.length + 1, ...dancerArray.find(d => d.id_dancer == this.state.dancer.user_id)};
         console.log("Calificaciones de hoy", getCurrentDancer);
         this.setState({dancersToday: getCurrentDancer, loading: false});
     }
