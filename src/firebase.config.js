@@ -1,6 +1,7 @@
 export const firebaseConfig = {
   apiKey: "AIzaSyBZm7jJI5mTuKRCe3j1KRA03HMZRhoEs2c",
   authDomain: "freedanzz.firebaseapp.com",
+  databaseURL: "https://freedanzz-default-rtdb.firebaseio.com",
   projectId: "freedanzz",
   storageBucket: "freedanzz.appspot.com",
   messagingSenderId: "249663448787",

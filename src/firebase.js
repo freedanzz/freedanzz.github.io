@@ -1,8 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getMessaging } from 'firebase/messaging';
-import { firebaseConfig } from './firebase.config';
+import { firebaseConfig as FBC } from './firebase.config';
+
+const firebaseConfig = {
+  ...FBC
+};
 
 const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
 
-export default messaging;
+export default app;

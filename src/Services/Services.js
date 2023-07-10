@@ -4,10 +4,6 @@ import { firebaseConfig } from '../firebase.config';
 
 class Services {
 
-  GetUsers = () => {
-    
-  }
-
   connectFirebase = async () => {
     const app = initializeApp(firebaseConfig);
     return app;
