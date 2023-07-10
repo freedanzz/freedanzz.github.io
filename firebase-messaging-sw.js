@@ -23,6 +23,12 @@ messaging.onBackgroundMessage(function(payload) {
     body: payload.notification.body,
   };
 
-  self.registration.showNotification(notificationTitle,
-    notificationOptions);
+  self.registration.showNotification(notificationTitle, notificationOptions);
+
+  self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
+    event.waitUntil(
+      clients.openWindow('/#/home') // Cambia la URL según tu configuración
+    );
+  });
 });
