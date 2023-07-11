@@ -26,13 +26,13 @@
             display: block;
             color: $white;
             position: absolute;
-            right: 15px;
-            top: 10px;
+            right: toRem(15);
+            top: toRem(10);
             text-decoration: underline;
         }
         .dancerImage {
-            width: 120px;
-            height: 120px;
+            width: toRem(120);
+            height: toRem(120);
             border-radius: 100%;
             //border: 3px solid $color2;
             overflow: hidden;
@@ -42,7 +42,7 @@
             font-size: toRem(30);
             text-align: center;
             color: #FFFFFF;
-            margin-top: 10px;
+            margin-top: toRem(10);
             .levelDancer {
                 font-size: toRem(20);
                 .level {
@@ -72,10 +72,10 @@
         flex-direction: row;
         width: calc(100% - 40px);
         margin: 0 auto;
-        padding: 10px;
+        padding: toRem(10);
         position: relative;
         box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.1);
-        margin-top: -40px;
+        margin-top: toRem(-40);
         z-index: 3;
         background-color: $white;
         border-radius: 5px;
@@ -107,8 +107,8 @@
     .progressWeekDancer {
         .backMedalTop {
             display: flex;
-            width: 65px;
-            height: 65px;
+            width: toRem(65);
+            height: toRem(65);
             align-items: flex-end;
             justify-content: center;
             padding-bottom: 3px;
@@ -131,23 +131,158 @@
             text-align: center;
         }
     }
+    .wrapTabs {
+        margin: toRem(30) 0;
+        padding: 0 toRem(10);
+        box-sizing: border-box;
+        .MuiTabs-root {
+            button {
+                padding: toRem(5);
+                text-transform: none;
+                font-size: toRem(15);
+                &:first-child {
+                    padding-left: 0;
+                }
+                &.Mui-selected {
+                    font-weight: bold;
+                }
+            }
+        }
+        .tab-panel {
+            padding-top: toRem(20);
+            .headTitle {
+                text-align: right;
+                font-size: toRem(18);
+                font-weight: normal;
+            }
+            .message {
+                font-size: toRem(18);
+                margin-top: toRem(20);
+            }
+            &.panel-2{
+                .wrapTopToday {
+                    background-color: rgba($white, 0.9);
+                    box-sizing: border-box;
+                    span {
+                        display: block;
+                        padding: toRem(10) 0;
+                        color: rgba(0, 0, 0, 0.6);
+                        text-align: right;
+                    }
+                    .head {
+                        display: flex;
+                        margin-bottom: toRem(10);
+                        > div {
+                        &:nth-child(1) {
+                            width: 10%;
+                            color: $color2;
+                        }
+                        &:nth-child(2) {
+                            width: 30%;
+                            color: $color2;
+                        }
+                        &:nth-child(3) {
+                            width: 15%;
+                            color: $color2;
+                        }
+                        &:nth-child(4),
+                        &:nth-child(5),
+                        &:nth-child(6),
+                        &:nth-child(7),
+                        &:nth-child(8) {
+                            width: 10%;
+                            text-align: center;
+                            color: $color2;
+                        }
+                        }
+                    }
+                    .content {
+                        display: flex;
+                        flex-direction: column;
+                        .item {
+                            display: flex;
+                            width: 100%;
+                            padding: toRem(5) 0;
+                            border-bottom: 1px solid #dbdbdb;
+                            color: rgba(0, 0, 0, 0.6);
+                            position: relative;
+                            &.currentDancer {
+                                position: relative;
+                                z-index: 2;
+                                transition: all ease-in-out .3s;
+                                border: 1px solid $color4;
+                            }
+                            &:last-child {
+                                border: none;
+                            }
+                            &:first-child {
+                                background-color: #ffbf00;
+                                font-weight: bold;
+                                &::before {
+                                    display: none;
+                                    content: '';
+                                    width: 22px;
+                                    height: 22px;
+                                    position: absolute;
+                                    right: toRem(-20);
+                                    background-image: url('../Images/medal.png');
+                                    background-size: toRem(22);
+                                    background-position: center center;
+                                    background-repeat: no-repeat;
+                                }
+                            }
+                            &:nth-child(2) {
+                                background-color: #e3e4e5;
+                                font-weight: bold;
+                            }
+                            &:nth-child(3) {
+                                background-color: #bf8970;
+                                font-weight: bold;
+                            }
+                            > div {
+                                &:nth-child(1) {
+                                    width: 10%;
+                                    padding-left: toRem(7);
+                                    box-sizing: border-box;
+                                }
+                                &:nth-child(2) {
+                                    width: 30%;
+                                }
+                                &:nth-child(3) {
+                                    width: 15%;
+                                }
+                                &:nth-child(4),
+                                &:nth-child(5),
+                                &:nth-child(6),
+                                &:nth-child(7),
+                                &:nth-child(8) {
+                                    width: 10%;
+                                    text-align: center;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .evaluationToday {
         display: flex;
         flex-wrap: wrap;
-        padding: 20px 10px 30px 10px;
+        //padding: 20px 10px 30px 10px;
         .wrapHeadEvaluationToday {
             display: flex;
             width: 100%;
-            margin: 20px 0;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
+            margin-bottom: 10px;
             h3 {
                 width: 100%;
             }
             .MuiInputBase-root {
                 font-size: toRem(15);
-                height: 40px;
+                height: toRem(40);
             }
         }
         .scoresEvaluationToday {
@@ -158,17 +293,17 @@
             .item {
                 display: flex;
                 flex-direction: column;
-                width: calc(100% / 3 - 5px);
-                height: 60px;
+                width: calc(100% / 3 - toRem(5));
+                height: toRem(60);
                 position: relative;
                 box-sizing: border-box;
                 overflow: hidden;
-                border-radius: 10px;
-                margin-bottom: 5px;
+                border-radius: toRem(10);
+                margin-bottom: toRem(5);
                 align-items: center;
                 justify-content: center;
-                margin-right: 5px;
-                box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+                margin-right: toRem(5);
+                box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
                 &:after {
                     display: block;
                     content: '';
@@ -229,6 +364,10 @@
             .top {
                 font-size: toRem(50);
                 font-weight: bold;
+                span {
+                    font-size: toRem(18);
+                    font-weight: normal;
+                }
             }
         }
     }
