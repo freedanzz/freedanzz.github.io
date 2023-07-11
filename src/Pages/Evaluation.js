@@ -220,7 +220,7 @@ class Evaluation extends React.Component {
       if (this.state.dancersToday !== null) {
         if(this.state.dancersToday.length > 0) {
           master = (this.state.dancersToday[0]!==undefined) ? this.state.dancersToday[0].master : 'No se ha calificado.';
-          dancersToday = this.state.dancersToday.sort((a, b) => a.score > b.score ? -1 : 1).slice(0, 10).map((item, key) => {
+          dancersToday = this.state.dancersToday.sort((a, b) => a.score > b.score ? -1 : 1).map((item, key) => {
             return (
               <div className='item'>
                 <div>{key + 1}</div>

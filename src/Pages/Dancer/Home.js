@@ -22,6 +22,7 @@ class Home extends React.Component {
         activeTab: 0,
         dancer: null,
         dancersToday: null,
+        topDancerWeek: null,
         topDancersToday: null,
         infoDancer: null
     };
@@ -83,9 +84,17 @@ class Home extends React.Component {
         }
 
         dancerArray.sort((a, b) => a.score > b.score ? -1 : 1);
-        const getCurrentDancer = {top: dancerArray.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, totalTop: dancerArray.length + 1, ...dancerArray.find(d => d.id_dancer == this.state.dancer.user_id)};
-        console.log("Calificaciones de hoy", getCurrentDancer);
-        this.setState({dancersToday: getCurrentDancer, topDancersToday: dancerArray, loading: false});
+        const getCurrentDancer = {top: dancerArray.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, totalTop: dancerArray.length, ...dancerArray.find(d => d.id_dancer == this.state.dancer.user_id)};
+        // console.log("Calificaciones de hoy", getCurrentDancer);
+        const dateSelected = dateEva !== undefined ? dateEva : moment();
+        const currentDate = moment();
+        if(dateSelected.isSame(currentDate, 'day')) {
+            // console.log("Si es hoy");
+            this.setState({topDancersToday: dancerArray});
+        } else {
+            // console.log("No es hoy");
+        }
+        this.setState({dancersToday: getCurrentDancer, loading: false});
     }
 
     getScoreDancerWeek = async () => {
@@ -95,13 +104,13 @@ class Home extends React.Component {
         const dayOfWeekName = moment().format('dddd');
         const getDayNumber = moment().day() == 0 ? 7 : moment().day();
         // const getDayNumber = 7;
-        console.log("Dayyyy", dayOfWeekName);
+        // console.log("Dayyyy", dayOfWeekName);
         let arraysDates = [];
         for(let i = 0; i < getDayNumber; i++) {
             // BACK A DAY
             arraysDates.push(`${moment().subtract(i, 'days').format('DD/MM/YYYY')}`);
         }
-        console.log("dates", arraysDates);
+        // console.log("dates", arraysDates);
         let dancersWeek = [];
         for(let i = 0; i < arraysDates.length; i++) {
             const dancers = await sFirebase.getDancersToday(db, arraysDates[i]);
@@ -142,19 +151,19 @@ class Home extends React.Component {
         }
         dancersWeek.sort((a, b) => a.score > b.score ? -1 : 1);
         const getCurrentDancer = {top: dancersWeek.findIndex(d => d.id_dancer == this.state.dancer.user_id) + 1, ...dancersWeek.find(d => d.id_dancer == this.state.dancer.user_id)};
-        console.log("Bailarines de la semana", dancersWeek);
-        console.log("Posición de bailarín", getCurrentDancer);
-        this.setState({infoDancer: getCurrentDancer, loading: false});
+        // console.log("Bailarines de la semana", dancersWeek);
+        // console.log("Posición de bailarín", getCurrentDancer);
+        this.setState({infoDancer: getCurrentDancer, topDancerWeek: dancersWeek, loading: false});
     }
 
     getValueCookieUser = async () => {
         try {
             const dancerSession = Cookies.get('dancer');
             const parseCookieDancer = JSON.parse(dancerSession);
-            console.log('Cookie de bailarín', parseCookieDancer);
+            // console.log('Cookie de bailarín', parseCookieDancer);
             this.setState({dancer: parseCookieDancer});
         } catch (e) {
-            console.log("No hay sesión activa.");
+            // console.log("No hay sesión activa.");
         }
     }
 
@@ -293,7 +302,7 @@ class Home extends React.Component {
                                 {topWeekDancer}
                             </div>
                             <div className='wrapTabs'>
-                                <Tabs currentTab={this.state.activeTab} changeTab={this.changeTab} />
+                                <Tabs currentTab={this.state.activeTab} changeTab={this.changeTab} stateTab={this.state.infoDancer !== null} />
                                 <div className='wrapTabsSelect'>
                                     {this.state.activeTab === 0 &&
                                         <div className='tab-panel panel-1'>
@@ -326,50 +335,93 @@ class Home extends React.Component {
                                     {
                                     this.state.activeTab === 1 && 
                                         <div className='tab-panel panel-2'>
-                                            <h3 className='headTitle'>
-                                                Así quedó el <b>Top 10</b> de bailarínes hoy.
-                                            </h3>
-                                            <div className='wrapTopToday'>
-                                                <span>Evaluados por: <b>Laura H | Profesora/Coreografa</b></span>
-                                                <div className='head'>
-                                                    <div>TOP</div>
-                                                    <div>BAILARÍN</div>
-                                                    <div>NIVEL</div>
-                                                    <div>VER</div>
-                                                    <div>PUN</div>
-                                                    <div>RES</div>
-                                                    <div>PAS</div>
-                                                    <div>RIG</div>
+                                            {this.state.topDancersToday.length > 0 ?
+                                            <>
+                                                <h3 className='headTitle'>
+                                                    Así quedó el <b>Top 10</b> de bailarínes hoy.
+                                                </h3>
+                                                <div className='wrapTopToday'>
+                                                    <span>Evaluados por: <b>Laura H | Profesora/Coreografa</b></span>
+                                                    <div className='head'>
+                                                        <div>TOP</div>
+                                                        <div>BAILARÍN</div>
+                                                        <div>NIVEL</div>
+                                                        <div>VER</div>
+                                                        <div>PUN</div>
+                                                        <div>RES</div>
+                                                        <div>PAS</div>
+                                                        <div>RIG</div>
+                                                    </div>
+                                                    <div className='content'>
+                                                        {
+                                                            this.state.topDancersToday.slice(0, 10).map((item, key) => {
+                                                                return (
+                                                                    <div className={`item ${item.id_dancer === this.state.infoDancer.id_dancer ? 'currentDancer' : ''}`}>
+                                                                        <div>{key + 1}</div>
+                                                                        <div>{item.names}</div>
+                                                                        <div>{item.level}</div>
+                                                                        <div>{item.ver}</div>
+                                                                        <div>{item.pun}</div>
+                                                                        <div>{item.res}</div>
+                                                                        <div>{item.pas}</div>
+                                                                        <div>{item.rig}</div>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
                                                 </div>
-                                                <div className='content'>
-                                                    {
-                                                        this.state.topDancersToday.length > 0 ? this.state.topDancersToday.slice(0, 10).map((item, key) => {
-                                                            return (
-                                                                <div className={`item ${item.id_dancer === this.state.infoDancer.id_dancer ? 'currentDancer' : ''}`}>
-                                                                    <div>{key + 1}</div>
-                                                                    <div>{item.names}</div>
-                                                                    <div>{item.level}</div>
-                                                                    <div>{item.ver}</div>
-                                                                    <div>{item.pun}</div>
-                                                                    <div>{item.res}</div>
-                                                                    <div>{item.pas}</div>
-                                                                    <div>{item.rig}</div>
-                                                                </div>
-                                                            )
-                                                        }) : 
-                                                        <div className='message'>
-                                                            Las calificaciones del día se cargarán una vez finalizado el esnayo presencial.<br /><br />
-                                                            Si quieres ver tus calificaciones en una fecha direrente, ve a la pestaña <b>"Mis calificaciones"</b>
-                                                        </div>
-                                                    }
-                                                </div>
-                                            </div>
+                                            </> :   <div className='message'>
+                                                        Las calificaciones del día se cargarán una vez finalizado el esnayo presencial.<br /><br />
+                                                        Si quieres ver tus calificaciones en una fecha direrente, ve a la pestaña <b>"Mis calificaciones"</b>
+                                                    </div>
+                                            }
                                         </div>
                                     }
                                     {
                                     this.state.activeTab === 2 && 
                                         <div className='tab-panel panel-3'>
-                                            En construcción.
+                                            {this.state.topDancerWeek.length > 0 ?
+                                            <>
+                                                <h3 className='headTitle'>
+                                                    Así va el <b>Top 10</b> de bailarínes de la semana.
+                                                </h3>
+                                                <div className='wrapTopToday'>
+                                                    <span>Evaluados por: <b>Laura H | Profesora/Coreografa</b></span>
+                                                    <div className='head'>
+                                                        <div>TOP</div>
+                                                        <div>BAILARÍN</div>
+                                                        <div>NIVEL</div>
+                                                        <div>VER</div>
+                                                        <div>PUN</div>
+                                                        <div>RES</div>
+                                                        <div>PAS</div>
+                                                        <div>RIG</div>
+                                                    </div>
+                                                    <div className='content'>
+                                                        {
+                                                            this.state.topDancerWeek.slice(0, 10).map((item, key) => {
+                                                                return (
+                                                                    <div key={key} className={`item ${item.id_dancer === this.state.infoDancer.id_dancer ? 'currentDancer' : ''}`}>
+                                                                        <div>{key + 1}</div>
+                                                                        <div>{item.names}</div>
+                                                                        <div>{item.level}</div>
+                                                                        <div>{item.ver}</div>
+                                                                        <div>{item.pun}</div>
+                                                                        <div>{item.res}</div>
+                                                                        <div>{item.pas}</div>
+                                                                        <div>{item.rig}</div>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </> :   <div className='message'>
+                                                        Las calificaciones del día se cargarán una vez finalizado el esnayo presencial.<br /><br />
+                                                        Si quieres ver tus calificaciones en una fecha direrente, ve a la pestaña <b>"Mis calificaciones"</b>
+                                                    </div>
+                                            }
                                         </div>
                                     }
                                 </div>

@@ -11,8 +11,8 @@ const TabsOptions = (props) => {
             indicatorColor="primary"
             aria-label="secondary tabs example">
                 <Tab value={0} label="Mis calificaciones" />
-                <Tab value={1} label="Top de hoy" />
-                <Tab value={2} label="Top de la semana" />
+                <Tab value={1} label="Top de hoy" disabled={!props.stateTab} />
+                <Tab value={2} label="Top de la semana"  disabled={!props.stateTab} />
         </Tabs>
     )
 }

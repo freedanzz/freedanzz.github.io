@@ -159,7 +159,8 @@
                 font-size: toRem(18);
                 margin-top: toRem(20);
             }
-            &.panel-2{
+            &.panel-2,
+            &.panel-3 {
                 .wrapTopToday {
                     background-color: rgba($white, 0.9);
                     box-sizing: border-box;
