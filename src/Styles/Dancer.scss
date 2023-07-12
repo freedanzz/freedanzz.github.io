@@ -1,3 +1,4 @@
+@import 'Menu';
 .wrapDancer {
     width: 100%;
     box-sizing: border-box;
@@ -66,6 +67,7 @@
         .titleDancer {
             width: 100%;
             padding: 10px 0 20px 20px;
+            font-size: toRem(18);
         }
         display: flex;
         flex-wrap: wrap;
@@ -139,7 +141,8 @@
             button {
                 padding: toRem(5);
                 text-transform: none;
-                font-size: toRem(15);
+                font-size: toRem(18);
+                font-family: 'PT Sans Narrow', sans-serif;
                 &:first-child {
                     padding-left: 0;
                 }

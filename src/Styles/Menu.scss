@@ -1,0 +1,148 @@
+$color_1: #b8b7ad;
+
+/* Position and sizing of burger button */
+/* Color/shape of burger icon bars */
+/* Color/shape of burger icon bars on hover*/
+/* Position and sizing of clickable cross button */
+/* Color/shape of close button cross */
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+/* General sidebar styles */
+/* Morph shape necessary with bubble or elastic */
+/* Wrapper for item list */
+/* Individual item */
+/* Styling of overlay */
+.bm-burger-button {
+	position: absolute;
+	width: 36px;
+	height: 30px;
+	left: 20px;
+	top: 20px;
+}
+.bm-burger-bars {
+    width: 30px;
+    height: 2px !important;
+	background: $white;
+    &:nth-child(2) {
+        top: 8px !important;
+    }
+    &:nth-child(3) {
+        top: 16px !important; 
+    }
+}
+.bm-burger-bars-hover {
+	background: #a90000;
+}
+.bm-cross-button {
+	height: 24px;
+	width: 24px;
+}
+.bm-cross {
+	background: #bdc3c7;
+}
+.bm-menu-wrap {
+	position: fixed;
+	height: 100%;
+}
+.bm-menu {
+	background: $white;
+	padding: toRem(40) toRem(10) toRem(10) toRem(10);
+	font-size: 1.15em;
+    .profileMenu {
+        display: flex !important;
+        align-items: center;
+        border-bottom: 1px solid #CCCCCC;
+        padding: toRem(20) 0;
+        .dancerImage {
+            width: toRem(36);
+            height: toRem(36);
+            border-radius: 100%;
+            //border: 3px solid $color2;
+            overflow: hidden;
+        }
+        .infoUser {
+            margin-left: toRem(10);
+            font-size: toRem(15);
+            color: #373a47;
+            .username {
+                .level {
+                    &-legion {
+                        font-weight: bold;
+                        color: #2b94f6;
+                    }
+                    &-half {
+                        font-weight: bold;
+                        color: #ff11a3;
+                    }
+                    &-beginner {
+                        font-weight: bold;
+                        color: #5a008d;
+                    }
+                }
+            }
+            .logout {
+                color: #8a8d91;
+                text-decoration: underline;
+            }
+        }
+    }
+    .FCMCheck {
+        padding: 30px 0;
+        color: #373a47;
+        border-bottom: 1px solid #CCCCCC;
+        .MuiFormControlLabel-label {
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-size: toRem(15);
+            font-weight: bold;
+        }
+        span {
+            &.detail {
+                font-size: toRem(14);
+                line-height: 1;
+                display: block;
+                color: #8a8d91;
+            }
+        }
+        h3 {
+            font-size: toRem(17);
+        }
+    }
+    .versionApp {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        padding: 0 10px;
+        font-size: toRem(13);
+        text-align: center;
+        .version {
+            text-align: right;
+            padding: 20px 0 10px 0;
+        }
+    }
+}
+.bm-morph-shape {
+	fill: #373a47;
+}
+.bm-item-list {
+	color: $color_1;
+	padding: toRem(10);
+    height: auto !important;
+}
+.bm-item {
+	display: inline-block;
+}
+.bm-overlay {
+	background: rgba(0, 0, 0, 0.3);
+}
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    /* Otros estilos personalizados */
+  }

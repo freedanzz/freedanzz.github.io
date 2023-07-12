@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Box, LinearProgress } from '@mui/material';
+import { Box, FormControlLabel, FormGroup, LinearProgress, Switch } from '@mui/material';
 import Cookies from 'js-cookie';
 import CircularProgressAnimation from '../../Utils/CircularAnimation';
 import Confetti from 'react-confetti';
@@ -10,7 +10,9 @@ import dayjs from 'dayjs';
 import IncrementScore from '../../Utils/Increment';
 import moment from 'moment';
 import { Navigate } from 'react-router-dom';
+import packageJson from '../../../package.json';
 import Services from '../../Services/Services';
+import { push as Menu } from 'react-burger-menu';
 import Tabs from '../../Components/Tabs/Tabs';
 import { Helmet } from 'react-helmet';
 
@@ -276,156 +278,195 @@ class Home extends React.Component {
                 return (
                     <>
                         <Helmet>
-                            <title>Freedanzz | Estudiante</title>
-                        </Helmet> 
-                        <div className='wrapDancer'>
-                            {celebrateConfetti}
-                            <div className='dancerProfile' style={{backgroundImage: `url(${this.state.dancer.image})`}}>
-                                <span className='logout' onClick={() => this.logout()}>Cerrar sesión</span>
-                                {/*<div className='dancerImage'>
-                                    <img width={120} src={`https://ui-avatars.com/api/?name=${this.state.dancer.names.split(" ").join("+")}`} />
-                                    <img width={120} src={this.state.dancer.image} />
-                                </div>*/}
-                                <div className='nameDancer'>
-                                    Hola, {this.state.dancer.names} !
-                                    <div className='levelDancer'>Bailarín <span className={'level-'+this.state.dancer.level.toLowerCase()}>{this.state.dancer.level}</span></div>
-                                </div>
-                            </div>
-                            <div className='dancerScoreGeneral'>
-                                <div className='titleDancer'>
-                                    Así va tu calificación esta semana !
-                                </div>
-                                {scoresDancer}
-                            </div>
-                            <div className='progressWeekDancer'>
-                                {/*<CircularProgress variant='determinate' color='secondary' value={70} />*/}
-                                {topWeekDancer}
-                            </div>
-                            <div className='wrapTabs'>
-                                <Tabs currentTab={this.state.activeTab} changeTab={this.changeTab} stateTab={this.state.infoDancer !== null} />
-                                <div className='wrapTabsSelect'>
-                                    {this.state.activeTab === 0 &&
-                                        <div className='tab-panel panel-1'>
-                                            <div className='evaluationToday'>
-                                                <div className='wrapHeadEvaluationToday'>
-                                                    <h3>Mis calificaciones</h3>
-                                                    <div className='title'>
-                                                        Buscar por fecha
-                                                    </div>
-                                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                        <DatePicker
-                                                            label="Fecha"
-                                                            format={'DD/MM/YYYY'}
-                                                            defaultValue={dayjs(moment().format('DD/MM/YYYY'),'DD/MM/YYYY')}
-                                                            onChange={(newValue) => {
-                                                                this.getEvaluationToday(newValue);
-                                                            }}
-                                                        />
-                                                    </LocalizationProvider>
-                                                </div>
-                                                {
-                                                    this.state.loading || this.state.infoDancer  === null ?
-                                                        <Box sx={{ width: '100%' }}>
-                                                            <LinearProgress color='secondary' style={{marginTop: 10}} />
-                                                        </Box> : evaluationDancerToday
-                                                }
-                                            </div>
+                            <title>Freedanz | Estudiante</title>
+                        </Helmet>
+                        <div id="outer-container">
+                            <Menu
+                                pageWrapId="page-wrap"
+                                outerContainerId="outer-container"
+                                overlayClassName="menu-overlay"
+                            >
+                                <div className='profileMenu'>
+                                    <div className='dancerImage'>
+                                        {/*<img width={36} src={`https://ui-avatars.com/api/?name=${this.state.dancer.names.split(" ").join("+")}`} />*/}
+                                        <img width={36} src={this.state.dancer.image} />
+                                    </div>
+                                    <div className='infoUser'>
+                                        <div className='username'>
+                                            {this.state.dancer.names} - <span className={'level-'+this.state.dancer.level.toLowerCase()}>{this.state.dancer.level}</span>
                                         </div>
-                                    }
-                                    {
-                                    this.state.activeTab === 1 && 
-                                        <div className='tab-panel panel-2'>
-                                            {this.state.topDancersToday.length > 0 ?
-                                            <>
-                                                <h3 className='headTitle'>
-                                                    Así quedó el <b>Top 10</b> de bailarínes hoy.
-                                                </h3>
-                                                <div className='wrapTopToday'>
-                                                    <span>Evaluados por: <b>Laura H | Profesora/Coreografa</b></span>
-                                                    <div className='head'>
-                                                        <div>TOP</div>
-                                                        <div>BAILARÍN</div>
-                                                        <div>NIVEL</div>
-                                                        <div>VER</div>
-                                                        <div>PUN</div>
-                                                        <div>RES</div>
-                                                        <div>PAS</div>
-                                                        <div>RIG</div>
-                                                    </div>
-                                                    <div className='content'>
+                                        <div className='logout'>
+                                            Cerrar sesión
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='FCMCheck'>
+                                    <h3>Notificaciones</h3>
+                                    <FormGroup>
+                                        <FormControlLabel control={<Switch />} label="Recibir notificaciones" />
+                                    </FormGroup>
+                                    <span className='detail'>Recibiras una notificación de la aplicación cada vez que se te califique.</span>
+                                </div>
+                                <div className='versionApp'>
+                                    <div>
+                                        © Copyright 2021 - {moment().format('yyyy')}, Freedanz Cluster Evaluation es un proyecto desarrollado por Freedanz Cluster.
+                                    </div>
+                                    <div className='version'>
+                                        Freedanz Evaluation v{packageJson.version}
+                                    </div>
+                                </div>
+                            </Menu>
+                            <main id="page-wrap">
+                                <div className='wrapDancer'>
+                                    {celebrateConfetti}
+                                    <div className='dancerProfile' style={{backgroundImage: `url(${this.state.dancer.image})`}}>
+                                        <span className='logout' onClick={() => this.logout()}>Cerrar sesión</span>
+                                        {/*<div className='dancerImage'>
+                                            <img width={120} src={`https://ui-avatars.com/api/?name=${this.state.dancer.names.split(" ").join("+")}`} />
+                                            <img width={120} src={this.state.dancer.image} />
+                                        </div>*/}
+                                        <div className='nameDancer'>
+                                            Hola, {this.state.dancer.names} !
+                                            <div className='levelDancer'>Bailarín <span className={'level-'+this.state.dancer.level.toLowerCase()}>{this.state.dancer.level}</span></div>
+                                        </div>
+                                    </div>
+                                    <div className='dancerScoreGeneral'>
+                                        <div className='titleDancer'>
+                                            Así va tu calificación esta semana !
+                                        </div>
+                                        {scoresDancer}
+                                    </div>
+                                    <div className='progressWeekDancer'>
+                                        {/*<CircularProgress variant='determinate' color='secondary' value={70} />*/}
+                                        {topWeekDancer}
+                                    </div>
+                                    <div className='wrapTabs'>
+                                        <Tabs currentTab={this.state.activeTab} changeTab={this.changeTab} stateTab={this.state.infoDancer !== null} />
+                                        <div className='wrapTabsSelect'>
+                                            {this.state.activeTab === 0 &&
+                                                <div className='tab-panel panel-1'>
+                                                    <div className='evaluationToday'>
+                                                        <div className='wrapHeadEvaluationToday'>
+                                                            <h3>Mis calificaciones</h3>
+                                                            <div className='title'>
+                                                                Buscar por fecha
+                                                            </div>
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                <DatePicker
+                                                                    label="Fecha"
+                                                                    format={'DD/MM/YYYY'}
+                                                                    defaultValue={dayjs(moment().format('DD/MM/YYYY'),'DD/MM/YYYY')}
+                                                                    onChange={(newValue) => {
+                                                                        this.getEvaluationToday(newValue);
+                                                                    }}
+                                                                />
+                                                            </LocalizationProvider>
+                                                        </div>
                                                         {
-                                                            this.state.topDancersToday.slice(0, 10).map((item, key) => {
-                                                                return (
-                                                                    <div className={`item ${item.id_dancer === this.state.infoDancer.id_dancer ? 'currentDancer' : ''}`}>
-                                                                        <div>{key + 1}</div>
-                                                                        <div>{item.names}</div>
-                                                                        <div>{item.level}</div>
-                                                                        <div>{item.ver}</div>
-                                                                        <div>{item.pun}</div>
-                                                                        <div>{item.res}</div>
-                                                                        <div>{item.pas}</div>
-                                                                        <div>{item.rig}</div>
-                                                                    </div>
-                                                                )
-                                                            })
+                                                            this.state.loading || this.state.infoDancer  === null ?
+                                                                <Box sx={{ width: '100%' }}>
+                                                                    <LinearProgress color='secondary' style={{marginTop: 10}} />
+                                                                </Box> : evaluationDancerToday
                                                         }
                                                     </div>
                                                 </div>
-                                            </> :   <div className='message'>
-                                                        Las calificaciones del día se cargarán una vez finalizado el ensayo presencial.<br /><br />
-                                                        Si quieres ver tus calificaciones en una fecha diferente, ve a la pestaña <b>"Mis calificaciones".</b>
-                                                    </div>
                                             }
-                                        </div>
-                                    }
-                                    {
-                                    this.state.activeTab === 2 && 
-                                        <div className='tab-panel panel-3'>
-                                            {this.state.topDancerWeek.length > 0 ?
-                                            <>
-                                                <h3 className='headTitle'>
-                                                    {moment().format('dddd').toLowerCase() === 'sunday' ? 'Así quedó' : 'Así va'} el <b>Top 10</b> de bailarínes de la semana.
-                                                </h3>
-                                                <div className='wrapTopToday'>
-                                                    <span>Evaluados por: <b>Laura H | Profesora/Coreografa</b></span>
-                                                    <div className='head'>
-                                                        <div>TOP</div>
-                                                        <div>BAILARÍN</div>
-                                                        <div>NIVEL</div>
-                                                        <div>VER</div>
-                                                        <div>PUN</div>
-                                                        <div>RES</div>
-                                                        <div>PAS</div>
-                                                        <div>RIG</div>
-                                                    </div>
-                                                    <div className='content'>
-                                                        {
-                                                            this.state.topDancerWeek.slice(0, 10).map((item, key) => {
-                                                                return (
-                                                                    <div key={key} className={`item ${item.id_dancer === this.state.infoDancer.id_dancer ? 'currentDancer' : ''}`}>
-                                                                        <div>{key + 1}</div>
-                                                                        <div>{item.names}</div>
-                                                                        <div>{item.level}</div>
-                                                                        <div>{item.ver}</div>
-                                                                        <div>{item.pun}</div>
-                                                                        <div>{item.res}</div>
-                                                                        <div>{item.pas}</div>
-                                                                        <div>{item.rig}</div>
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
-                                                    </div>
+                                            {
+                                            this.state.activeTab === 1 && 
+                                                <div className='tab-panel panel-2'>
+                                                    {this.state.topDancersToday.length > 0 ?
+                                                    <>
+                                                        <h3 className='headTitle'>
+                                                            Así quedó el <b>Top 10</b> de bailarínes hoy.
+                                                        </h3>
+                                                        <div className='wrapTopToday'>
+                                                            <span>Evaluados por: <b>Laura H | Profesora/Coreografa</b></span>
+                                                            <div className='head'>
+                                                                <div>TOP</div>
+                                                                <div>BAILARÍN</div>
+                                                                <div>NIVEL</div>
+                                                                <div>VER</div>
+                                                                <div>PUN</div>
+                                                                <div>RES</div>
+                                                                <div>PAS</div>
+                                                                <div>RIG</div>
+                                                            </div>
+                                                            <div className='content'>
+                                                                {
+                                                                    this.state.topDancersToday.slice(0, 10).map((item, key) => {
+                                                                        return (
+                                                                            <div className={`item ${item.id_dancer === this.state.infoDancer.id_dancer ? 'currentDancer' : ''}`}>
+                                                                                <div>{key + 1}</div>
+                                                                                <div>{item.names}</div>
+                                                                                <div>{item.level}</div>
+                                                                                <div>{item.ver}</div>
+                                                                                <div>{item.pun}</div>
+                                                                                <div>{item.res}</div>
+                                                                                <div>{item.pas}</div>
+                                                                                <div>{item.rig}</div>
+                                                                            </div>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </> :   <div className='message'>
+                                                                Las calificaciones del día se cargarán una vez finalizado el ensayo presencial.<br /><br />
+                                                                Si quieres ver tus calificaciones en una fecha diferente, ve a la pestaña <b>"Mis calificaciones".</b>
+                                                            </div>
+                                                    }
                                                 </div>
-                                            </> :   <div className='message'>
-                                                        Las calificaciones del día se cargarán una vez finalizado el esnayo presencial.<br /><br />
-                                                        Si quieres ver tus calificaciones en una fecha direrente, ve a la pestaña <b>"Mis calificaciones"</b>
-                                                    </div>
+                                            }
+                                            {
+                                            this.state.activeTab === 2 && 
+                                                <div className='tab-panel panel-3'>
+                                                    {this.state.topDancerWeek.length > 0 ?
+                                                    <>
+                                                        <h3 className='headTitle'>
+                                                            {moment().format('dddd').toLowerCase() === 'sunday' ? 'Así quedó' : 'Así va'} el <b>Top 10</b> de bailarínes de la semana.
+                                                        </h3>
+                                                        <div className='wrapTopToday'>
+                                                            <span>Evaluados por: <b>Laura H | Profesora/Coreografa</b></span>
+                                                            <div className='head'>
+                                                                <div>TOP</div>
+                                                                <div>BAILARÍN</div>
+                                                                <div>NIVEL</div>
+                                                                <div>VER</div>
+                                                                <div>PUN</div>
+                                                                <div>RES</div>
+                                                                <div>PAS</div>
+                                                                <div>RIG</div>
+                                                            </div>
+                                                            <div className='content'>
+                                                                {
+                                                                    this.state.topDancerWeek.slice(0, 10).map((item, key) => {
+                                                                        return (
+                                                                            <div key={key} className={`item ${item.id_dancer === this.state.infoDancer.id_dancer ? 'currentDancer' : ''}`}>
+                                                                                <div>{key + 1}</div>
+                                                                                <div>{item.names}</div>
+                                                                                <div>{item.level}</div>
+                                                                                <div>{item.ver}</div>
+                                                                                <div>{item.pun}</div>
+                                                                                <div>{item.res}</div>
+                                                                                <div>{item.pas}</div>
+                                                                                <div>{item.rig}</div>
+                                                                            </div>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </> :   <div className='message'>
+                                                                Las calificaciones del día se cargarán una vez finalizado el esnayo presencial.<br /><br />
+                                                                Si quieres ver tus calificaciones en una fecha direrente, ve a la pestaña <b>"Mis calificaciones"</b>
+                                                            </div>
+                                                    }
+                                                </div>
                                             }
                                         </div>
-                                    }
+                                    </div>
                                 </div>
-                            </div>
+                            </main>
                         </div>
                     </>
                 )
