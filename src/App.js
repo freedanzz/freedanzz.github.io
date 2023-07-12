@@ -18,7 +18,7 @@ import Page404 from "./Pages/404Page";
 import LoginPage from "./Pages/Login";
 import Home from "./Pages/Dancer/Home";
 import { useEffect } from "react";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { deleteToken, getMessaging, getToken, onMessage } from "firebase/messaging";
 
 import app from './firebase';
 
@@ -26,29 +26,6 @@ import app from './firebase';
 function App() {
   useEffect(() => {
     const messaging = getMessaging(app);
-    const subscribeToTopic = async () => {
-      try {
-        const token = await messaging.getToken({ vapidKey: 'TU_VAPID_KEY' });
-        const response = await fetch(
-          `https://iid.googleapis.com/iid/v1/${token}/rel/topics/MI_TEMA`,
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `key=TU_CLAVE_DEL_SERVIDOR`,
-            },
-          }
-        );
-
-        if (response.ok) {
-          console.log('Suscripción al tema exitosa');
-        } else {
-          throw new Error('Error al suscribirse al tema');
-        }
-      } catch (error) {
-        console.error('Error al suscribirse al tema:', error);
-      }
-    };
-
     // Add the public key generated from the console here.
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
@@ -57,7 +34,8 @@ function App() {
           if (currentToken) {
             const topic = 'freedanz';
             console.log("Token", currentToken);
-            const isSubscribed = currentToken.startsWith('/topics/freedanz');
+            deleteToken(messaging);
+            /*const isSubscribed = currentToken.startsWith('/topics/freedanz');
             if (isSubscribed) {
               console.log('El dispositivo está suscrito al tema');
             } else {
@@ -74,7 +52,7 @@ function App() {
               console.log("Suscrito");
             } catch (error) {
               console.log("Topic", error);
-            }
+            }*/
           } else {
             // Show permission request UI
             console.log('No registration token available. Request permission to generate one.');

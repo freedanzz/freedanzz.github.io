@@ -372,8 +372,8 @@ class Home extends React.Component {
                                                     </div>
                                                 </div>
                                             </> :   <div className='message'>
-                                                        Las calificaciones del día se cargarán una vez finalizado el esnayo presencial.<br /><br />
-                                                        Si quieres ver tus calificaciones en una fecha direrente, ve a la pestaña <b>"Mis calificaciones"</b>
+                                                        Las calificaciones del día se cargarán una vez finalizado el ensayo presencial.<br /><br />
+                                                        Si quieres ver tus calificaciones en una fecha diferente, ve a la pestaña <b>"Mis calificaciones".</b>
                                                     </div>
                                             }
                                         </div>
@@ -384,7 +384,7 @@ class Home extends React.Component {
                                             {this.state.topDancerWeek.length > 0 ?
                                             <>
                                                 <h3 className='headTitle'>
-                                                    Así va el <b>Top 10</b> de bailarínes de la semana.
+                                                    {moment().format('dddd').toLowerCase() === 'sunday' ? 'Así quedó' : 'Así va'} el <b>Top 10</b> de bailarínes de la semana.
                                                 </h3>
                                                 <div className='wrapTopToday'>
                                                     <span>Evaluados por: <b>Laura H | Profesora/Coreografa</b></span>
