@@ -7,6 +7,7 @@ import CircularProgressAnimation from '../../Utils/CircularAnimation';
 import Confetti from 'react-confetti';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
+import { Helmet } from 'react-helmet';
 import IncrementScore from '../../Utils/Increment';
 import moment from 'moment';
 import { Navigate } from 'react-router-dom';
@@ -14,12 +15,11 @@ import packageJson from '../../../package.json';
 import Services from '../../Services/Services';
 import { push as Menu } from 'react-burger-menu';
 import Tabs from '../../Components/Tabs/Tabs';
-import { Helmet } from 'react-helmet';
 
 const sFirebase = new Services();
 
 class Home extends React.Component {
-    
+
     state = {
         activeTab: 0,
         dancer: null,
@@ -33,7 +33,7 @@ class Home extends React.Component {
         this.getValueCookieUser();
         this.getEvaluationToday();
         this.getScoreDancerWeek();
-        
+
     }
 
     logout = () => {
@@ -78,7 +78,7 @@ class Home extends React.Component {
             score: (parseInt(doc.data().ver) + parseInt(doc.data().pun) + parseInt(doc.data().res) + parseInt(doc.data().pas) + parseInt(doc.data().rig)) * 100 / 25
           })
         });
-    
+
         for (let i=0; i < dancerArray.length; i++){
           let danc = await sFirebase.getDancer(db,dancerArray[i].id_dancer);
           dancerArray[i].names = danc.names;
@@ -372,7 +372,7 @@ class Home extends React.Component {
                                                 </div>
                                             }
                                             {
-                                            this.state.activeTab === 1 && 
+                                            this.state.activeTab === 1 &&
                                                 <div className='tab-panel panel-2'>
                                                     {this.state.topDancersToday.length > 0 ?
                                                     <>
@@ -418,7 +418,7 @@ class Home extends React.Component {
                                                 </div>
                                             }
                                             {
-                                            this.state.activeTab === 2 && 
+                                            this.state.activeTab === 2 &&
                                                 <div className='tab-panel panel-3'>
                                                     {this.state.topDancerWeek.length > 0 ?
                                                     <>
