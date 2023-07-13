@@ -1,12 +1,14 @@
 import React from 'react';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import app from '../../firebase';
 import { Box, FormControlLabel, FormGroup, LinearProgress, Switch } from '@mui/material';
 import Cookies from 'js-cookie';
 import CircularProgressAnimation from '../../Utils/CircularAnimation';
 import Confetti from 'react-confetti';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
+import { deleteToken, getMessaging, getToken } from 'firebase/messaging';
 import { Helmet } from 'react-helmet';
 import IncrementScore from '../../Utils/Increment';
 import moment from 'moment';
@@ -15,7 +17,6 @@ import packageJson from '../../../package.json';
 import Services from '../../Services/Services';
 import { push as Menu } from 'react-burger-menu';
 import Tabs from '../../Components/Tabs/Tabs';
-import { parse } from 'date-fns';
 
 const sFirebase = new Services();
 
@@ -55,6 +56,31 @@ class Home extends React.Component {
         let jsonFCM = { stateFCM: event.target.checked }
         Cookies.set('stateFCM', JSON.stringify(jsonFCM));
         this.setState({ stateFCM: event.target.checked });
+        this.validateTopicFCM(event.target.checked);
+    }
+
+    validateTopicFCM = async (state) => {
+        const messaging = getMessaging(app);
+        if (state) {
+            try {
+                const currentToken = await getToken(messaging);
+                const topic = 'freedanz';
+                console.log("Token", currentToken);
+                await fetch(`https://iid.googleapis.com/iid/v1/${currentToken}/rel/topics/${topic}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer AAAAOiEZ5tM:APA91bF3Zqtu7Phnq-ZZbHqHm3KV0S_pFuOPY5mwWD_uwhMy0uktTZRzwXzrq_z7fAYvs9zEDPCVmyXI2OYm2f2MWh5we5AX57Zcx1U2nN2-fOoBLP1vPZQ_6LtR1IYrV40Jrj3cEoHY' // Replace with your FCM server key
+                    }
+                });
+                console.log("Suscrito a freedanz");
+            } catch (error) {
+                console.log("Topic subscribe", error);
+            }
+        } else {
+            await deleteToken(messaging);
+            console.log("Ya no estás suscrito a freedanz");
+        }
     }
 
     logout = () => {

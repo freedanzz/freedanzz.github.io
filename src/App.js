@@ -9,7 +9,7 @@ import Tariff from "./Pages/Tariff";
 import UsersPage from './Pages/UsersPage';
 
 /**
- * 
+ *
  * @returns Styles
  */
 
@@ -30,38 +30,6 @@ function App() {
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
         console.log('Notification permission granted.');
-        getToken(messaging, { vapidKey: 'BJPzWOTY8OE7mFckOcdgOEl5Y7Bve4xzOA1C-BkH_ylerDf7-gEDyuTTCxe86VtVzuje356ZWXjOHgiNE76-ybw' }).then((currentToken) => {
-          if (currentToken) {
-            const topic = 'freedanz';
-            console.log("Token", currentToken);
-            deleteToken(messaging);
-            /*const isSubscribed = currentToken.startsWith('/topics/freedanz');
-            if (isSubscribed) {
-              console.log('El dispositivo está suscrito al tema');
-            } else {
-              console.log('El dispositivo NO está suscrito al tema');
-            }
-            try {
-              fetch(`https://iid.googleapis.com/iid/v1/${currentToken}/rel/topics/${topic}`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': 'Bearer AAAAOiEZ5tM:APA91bF3Zqtu7Phnq-ZZbHqHm3KV0S_pFuOPY5mwWD_uwhMy0uktTZRzwXzrq_z7fAYvs9zEDPCVmyXI2OYm2f2MWh5we5AX57Zcx1U2nN2-fOoBLP1vPZQ_6LtR1IYrV40Jrj3cEoHY' // Replace with your FCM server key
-                }
-              });
-              console.log("Suscrito");
-            } catch (error) {
-              console.log("Topic", error);
-            }*/
-          } else {
-            // Show permission request UI
-            console.log('No registration token available. Request permission to generate one.');
-            // ...
-          }
-        }).catch((err) => {
-          console.log('An error occurred while retrieving token. ', err);
-          // ...
-        });
       } else {
         console.log('Notification permission reject.');
       }
