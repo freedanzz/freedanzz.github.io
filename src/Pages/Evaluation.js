@@ -12,6 +12,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers-pro';
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import app from '../firebase';
+import { Button } from '@mui/material';
 
 const sFirebase = new Services();
 
@@ -36,8 +38,7 @@ class Evaluation extends React.Component {
   }
 
   getDatabaseFB = async () => {
-    const FBConecction = await sFirebase.connectFirebase();
-    const db = await sFirebase.connectDatabaseFirebase(FBConecction);
+    const db = await sFirebase.connectDatabaseFirebase(app);
     return db;
   }
 
@@ -75,6 +76,38 @@ class Evaluation extends React.Component {
     event.target.names.value = '';
     event.target.level.value = '';
 
+  }
+
+  sendNotificationEvaluation = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "key=AAAAOiEZ5tM:APA91bF3Zqtu7Phnq-ZZbHqHm3KV0S_pFuOPY5mwWD_uwhMy0uktTZRzwXzrq_z7fAYvs9zEDPCVmyXI2OYm2f2MWh5we5AX57Zcx1U2nN2-fOoBLP1vPZQ_6LtR1IYrV40Jrj3cEoHY");
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "notification": {
+        "title": "Freedanz Evaluaciones",
+        "body": "Ya puedes ver tus calificaciones!",
+        "icon": "icono.png"
+      },
+      "to": "/topics/freedanz"
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    
+    try {
+      await fetch("https://fcm.googleapis.com/fcm/send", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+        console.log("Notificación enviada correctamente.");
+    } catch (error) {
+      console.log("Error al enviar notificacion: ", error);
+    }
   }
 
   handleSaveEvaluation = async (event) => {
@@ -325,7 +358,7 @@ class Evaluation extends React.Component {
             </div>
           </div>
         </div>
-        <SaveEvaluation state={this.state.successEva} dancers={this.state.dancers} saveScores={this.handleSaveEvaluation} />
+        <SaveEvaluation state={this.state.successEva} dancers={this.state.dancers} saveScores={this.handleSaveEvaluation} sendNotification={this.sendNotificationEvaluation} />
       </div>
       </>
     )

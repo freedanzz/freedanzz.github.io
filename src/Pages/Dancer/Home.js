@@ -486,6 +486,7 @@ class Home extends React.Component {
                                                                 </div>
                                                                 <div className='content'>
                                                                     {
+                                                                        /*this.state.topDancerWeek.filter((dancer) => (this.state.dancer.level === 'LEGION' ? dancer.level == this.state.dancer.level : dancer.level != 'LEGION')).slice(0, 10).map((item, key) => {*/
                                                                         this.state.topDancerWeek.slice(0, 10).map((item, key) => {
                                                                             return (
                                                                                 <div key={key} className={`item ${item.id_dancer === this.state.infoDancer.id_dancer ? 'currentDancer' : ''}`}>

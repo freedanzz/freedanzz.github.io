@@ -18,7 +18,7 @@ import Page404 from "./Pages/404Page";
 import LoginPage from "./Pages/Login";
 import Home from "./Pages/Dancer/Home";
 import { useEffect } from "react";
-import { deleteToken, getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getMessaging, onMessage } from "firebase/messaging";
 
 import app from './firebase';
 
