@@ -25,7 +25,6 @@ import app from './firebase';
 
 function App() {
   useEffect(() => {
-    const messaging = getMessaging(app);
     // Add the public key generated from the console here.
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
@@ -33,10 +32,6 @@ function App() {
       } else {
         console.log('Notification permission reject.');
       }
-    });
-    onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
-      // ...
     });
   }, []);
   return (

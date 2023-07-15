@@ -60,7 +60,7 @@ class Home extends React.Component {
     }
 
     validateTopicFCM = async (state) => {
-        const messaging = getMessaging(app);
+        const messaging = await getMessaging(app);
         if (state) {
             try {
                 const currentToken = await getToken(messaging);
