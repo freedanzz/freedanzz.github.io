@@ -63,12 +63,44 @@
             }
         }
     }
-    .dancerScoreGeneral {
-        .titleDancer {
-            width: 100%;
-            padding: 10px 0 20px 20px;
+    .countDown {
+        padding: toRem(10);
+        box-sizing: border-box;
+        h1 {
             font-size: toRem(18);
+            font-weight: normal;
+            text-align: center;
         }
+        &-wrap {
+            display: flex;
+            justify-content: center;
+            padding: toRem(10) 0;
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,94,1) 35%, rgba(175,0,255,1) 100%);
+            border-radius: toRem(10);
+            &-item {
+                display: flex;
+                width: toRem(65);
+                flex-wrap: wrap;
+                justify-content: center;
+                line-height: 1;
+                text-transform: uppercase;
+                font-size: toRem(12);
+                color: $white;
+                border-right: toRem(1) solid $white;
+                &:last-child {
+                    border: none;
+                }
+                span {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: toRem(30);
+                }
+            }
+        }
+    }
+    .dancerScoreGeneral {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
@@ -81,14 +113,39 @@
         z-index: 3;
         background-color: $white;
         border-radius: 5px;
+        swiper-container {
+            width: 100%;
+            height: toRem(100);
+            &::part(pagination) {
+                bottom: 0;
+            }
+            &::part(bullet) {
+                background-color: $color2; //#5a008d
+            }
+            &::part(bullet-active) {
+                background-color: $color2; //#5a008d
+            }
+        }
+        .titleDancer {
+            width: 100%;
+            padding: 10px 0 20px 20px;
+            font-size: toRem(18);
+        }
         .itemScore {
             display: flex;
-            width: calc(20% - 1px);
+            width: 100%;
             flex-direction: column;
             align-items: center;
-            border-right: 1px solid #CCC;
-            &:last-child {
-                border-right: none;
+            margin-bottom: toRem(10);
+            &::before {
+                display: block;
+                content: '';
+                width: 1px;
+                height: toRem(30);
+                background-color: #CCC;
+                position: absolute;
+                right: 0;
+                top: toRem(15);
             }
             .score {
                 display: flex;
@@ -102,7 +159,8 @@
                 }
             }
             .scoreText {
-                font-size: toRem(11);
+                font-size: toRem(13);
+                text-align: center;
             }
         }
     }
@@ -131,6 +189,44 @@
         }
         .textTopWeek {
             text-align: center;
+        }
+        h2 {
+            width: 100%;
+            color: black;
+            text-align: center;
+            margin: toRem(30) 0 toRem(10) 0;
+        }
+        .acumulatePointDancer {
+            display: flex;
+            background-color: $color2;
+            padding: toRem(20) toRem(10) toRem(20) toRem(10);
+            margin: toRem(20) 0;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            .pointsItem {
+                display: flex;
+                width: 25%;
+                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: center;
+                line-height: 1;
+                &.current {
+                    .point {
+                        font-size: toRem(50);
+                        font-weight: bold;
+                    }
+                }
+                .point {
+                    font-size: toRem(25);
+                    color: white;
+                }
+                .text {
+                    font-size: toRem(11);
+                    color: $white;
+                    text-transform: uppercase;
+                }
+            }
         }
     }
     .wrapTabs {
