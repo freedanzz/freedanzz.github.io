@@ -31,7 +31,6 @@ const CountdownTimer = () => {
 
   return (
     <div className='countDown'>
-      <h1>Las calificaciones se cerrarán en:</h1>
       <div className='countDown-wrap'>
         <div className='countDown-wrap-item'><span>{remainingTime.days}</span>días</div>
         <div className='countDown-wrap-item'><span>{remainingTime.hours}</span>horas</div>

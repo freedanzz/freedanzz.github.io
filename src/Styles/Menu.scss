@@ -15,7 +15,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Individual item */
 /* Styling of overlay */
 .bm-burger-button {
-	position: absolute;
+	position: fixed;
 	width: 36px;
 	height: 30px;
 	left: 20px;

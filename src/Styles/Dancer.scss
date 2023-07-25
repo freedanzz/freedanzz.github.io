@@ -64,8 +64,10 @@
         }
     }
     .countDown {
-        padding: toRem(10);
+        width: 100%;
+        position: fixed;
         box-sizing: border-box;
+        z-index: 3;
         h1 {
             font-size: toRem(18);
             font-weight: normal;
@@ -73,13 +75,12 @@
         }
         &-wrap {
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
             padding: toRem(10) 0;
             background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,94,1) 35%, rgba(175,0,255,1) 100%);
-            border-radius: toRem(10);
             &-item {
                 display: flex;
-                width: toRem(65);
+                width: toRem(60);
                 flex-wrap: wrap;
                 justify-content: center;
                 line-height: 1;
@@ -95,7 +96,7 @@
                     width: 100%;
                     text-align: center;
                     font-weight: bold;
-                    font-size: toRem(30);
+                    font-size: toRem(24);
                 }
             }
         }
