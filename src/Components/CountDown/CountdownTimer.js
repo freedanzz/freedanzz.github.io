@@ -32,6 +32,7 @@ const CountdownTimer = () => {
   return (
     <div className='countDown'>
       <div className='countDown-wrap'>
+        <div className='countDown-wrap-title'>QUEDAN</div>
         <div className='countDown-wrap-item'><span>{remainingTime.days}</span>días</div>
         <div className='countDown-wrap-item'><span>{remainingTime.hours}</span>horas</div>
         <div className='countDown-wrap-item'><span>{remainingTime.minutes}</span>minutos</div>

@@ -1,0 +1,33 @@
+/**
+* THEME COLORS:
+* BEGINNER: $color4
+* HALF: $color3
+* LEGION: $color2
+*/
+.theme {
+    &-legion {
+
+    }
+    &-half {
+        #page-wrap {
+            .wrapDancer {
+                .progressWeekDancer {
+                    .acumulatePointDancer {
+                        background-color: $color3;
+                    }
+                }
+            }
+        }
+    }
+    &-beginner {
+        #page-wrap {
+            .wrapDancer {
+                .progressWeekDancer {
+                    .acumulatePointDancer {
+                        background-color: $color4;
+                    }
+                }
+            }
+        }
+    }
+}

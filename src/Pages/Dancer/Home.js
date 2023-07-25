@@ -350,13 +350,13 @@ class Home extends React.Component {
 
                     topWeekDancer = (
                         <>
-                            <div>
+                            {/*<div>
                                 <div className={`backMedalTop ${this.state.infoDancer.top > 3 ? 'low' : 'top'}`}>
                                     <div>{this.state.infoDancer.top}</div>
                                 </div>
                                 <div className='textTopWeek'><strong>TOP</strong> del mes</div>
-                            </div>
-                            <div className='acumulatePointDancer'>
+                            </div>*/}
+                            <div className={`acumulatePointDancer`}>
                                 <div className='pointsItem'>
                                     <div className='point'>500</div>
                                     <div className='text'>Meta</div>
@@ -409,7 +409,7 @@ class Home extends React.Component {
                         <Helmet>
                             <title>Freedanz | Estudiante</title>
                         </Helmet>
-                        <div id="outer-container">
+                        <div id="outer-container" className={`theme-${this.state.dancer.level.toLowerCase()}`}>
                             <Menu
                                 pageWrapId="page-wrap"
                                 outerContainerId="outer-container"
