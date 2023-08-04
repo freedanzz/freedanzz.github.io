@@ -100,7 +100,7 @@ class FestivalPage extends React.Component {
                     <img alt={this.state.dancers[this.state.lotteryDancer].nombre_artistico} src={this.state.dancers[this.state.lotteryDancer].image} />
                 </div>
                 <div className='festival__dancers__dancer__name'>
-                    {this.state.dancers[this.state.lotteryDancer].nombre_artistico}--
+                    {this.state.dancers[this.state.lotteryDancer].nombre_artistico}
                 </div>
             </div>
         ) : (
