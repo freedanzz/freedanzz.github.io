@@ -6,11 +6,29 @@
 */
 .theme {
     &-legion {
-
+        #page-wrap {
+            .wrapDancer {
+                .countDown {
+                    &-wrap {
+                        background: linear-gradient(90deg, rgba(0,20,40,1) 0%, rgba(43,148,246,1) 35%, rgba(43,148,246,1) 100%);
+                    }
+                }
+                .progressWeekDancer {
+                    .acumulatePointDancer {
+                        background-color: $color2;
+                    }
+                }
+            }
+        }
     }
     &-half {
         #page-wrap {
             .wrapDancer {
+                .countDown {
+                    &-wrap {
+                        background: linear-gradient(90deg, rgba(78,8,51,1) 0%, rgba(255,17,163,1) 35%, rgba(255,17,163,1) 100%);
+                    }
+                }
                 .progressWeekDancer {
                     .acumulatePointDancer {
                         background-color: $color3;
@@ -22,6 +40,11 @@
     &-beginner {
         #page-wrap {
             .wrapDancer {
+                .countDown {
+                    &-wrap {
+                        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,94,1) 35%, rgba(175,0,255,1) 100%);
+                    }
+                }
                 .progressWeekDancer {
                     .acumulatePointDancer {
                         background-color: $color4;

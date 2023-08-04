@@ -78,7 +78,6 @@
             justify-content: flex-end;
             align-items: center;
             padding: toRem(10) 0;
-            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(121,9,94,1) 35%, rgba(175,0,255,1) 100%);
             &-title {
                 font-size: toRem(13);
                 color: white;
@@ -98,7 +97,7 @@
                     display: block;
                     content: '';
                     width: 1px;
-                    background-color: rgba(121,9,94,0.3);
+                    background-color: rgba(255,255,255,0.3);
                     height: 100%;
                     position: absolute;
                     right: 0;
@@ -331,7 +330,7 @@
                                 border: 1px solid $color4;
                             }
                             &:last-child {
-                                border: none;
+                                //border: none;
                             }
                             &:first-child {
                                 background-color: #ffbf00;

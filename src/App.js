@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import { getMessaging, onMessage } from "firebase/messaging";
 
 import app from './firebase';
+import FestivalPage from "./Pages/FestivalPage";
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
            */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/festival" element={<FestivalPage />} />
           <Route path='*' exact={true} element={<Page404 />} />
         </Routes>
       </Router>

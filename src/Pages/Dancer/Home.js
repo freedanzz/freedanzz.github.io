@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import app from '../../firebase';
-import { Box, FormControlLabel, FormGroup, LinearProgress, Switch } from '@mui/material';
+import { Box, FormControlLabel, FormGroup, LinearProgress, Slider, Stack, Switch } from '@mui/material';
 import Cookies from 'js-cookie';
 import CircularProgressAnimation from '../../Utils/CircularAnimation';
 import Confetti from 'react-confetti';
@@ -16,7 +16,6 @@ import { Navigate } from 'react-router-dom';
 import packageJson from '../../../package.json';
 import { push as Menu } from 'react-burger-menu';
 import Services from '../../Services/Services';
-import Slider from 'react-slick';
 import Tabs from '../../Components/Tabs/Tabs';
 
 // import function to register Swiper custom elements
@@ -347,7 +346,22 @@ class Home extends React.Component {
                             </swiper-container>
                         </>
                     );
-
+                    const customSliderStyles = {
+                        root: {
+                          color: '#3f51b5', // Set the desired color for the thumb
+                        },
+                        thumb: {
+                          '&:hover': {
+                            boxShadow: '0px 0px 0px 8px rgba(63, 81, 181, 0.16)', // Custom hover effect
+                          },
+                          '&:active': {
+                            boxShadow: '0px 0px 0px 14px rgba(63, 81, 181, 0.16)', // Custom active effect
+                          },
+                        },
+                        track: {
+                          color: '#7986cb', // Set the desired color for the track
+                        },
+                    };
                     topWeekDancer = (
                         <>
                             {/*<div>
@@ -369,6 +383,24 @@ class Home extends React.Component {
                                     <div className='point'>{isNaN(500 - this.state.infoDancer.score) ? 500 : (500 - this.state.infoDancer.score)}</div>
                                     <div className='text'>Faltantes</div>
                                 </div>
+                                <Stack sx={{ height: 300 }} spacing={1} direction="row">
+                                    <Slider
+                                        aria-label="Temperature"
+                                        orientation="vertical"
+                                        valueLabelDisplay="auto"
+                                        defaultValue={0}
+                                        color='secondary'
+                                        marks={[
+                                            {
+                                                value: 0,
+                                                label: '0'
+                                            }, {
+                                                value: 100,
+                                                label: ' 500'
+                                            }
+                                        ]}
+                                    />
+                                </Stack>
                             </div>
                         </>
                     );
