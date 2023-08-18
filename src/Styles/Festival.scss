@@ -29,7 +29,7 @@
             width: auto;
             grid-template-columns: repeat(4, auto);
             //grid-auto-flow: column;
-            grid-gap: 10px;
+            grid-gap: 20px;
             align-self: flex-start;
 
             a {
@@ -71,7 +71,6 @@
             width: calc(100% / 5 - 10px);
             justify-content: center;
             flex-wrap: wrap;
-            margin: toRem(10) toRem(5);
 
             &:nth-child(odd) {
                 .festival__dancers__dancer__image {
@@ -85,6 +84,16 @@
                 }
             }
 
+            &.calificated {
+                .festival__dancers__dancer__image {
+                    filter: blur(2px);
+
+                    &::before {
+                        display: block;
+                    }
+                }
+            }
+
             &__image {
                 width: 90px;
                 height: 90px;
@@ -93,6 +102,17 @@
                 background-repeat: no-repeat;
                 background-size: 100% auto;
                 background-position: center center;
+                position: relative;
+
+                &::before {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    background-color: rgba($color4, 0.6);
+                    display: none;
+                }
 
                 img {
                     width: 100%;
@@ -179,14 +199,17 @@
             justify-content: space-between;
             flex-wrap: wrap;
             align-content: flex-start;
+
             .MuiFormControl-root {
                 width: calc(50% - 10px);
                 margin-bottom: 10px;
             }
+
             .Textarea {
                 width: 100%;
                 resize: vertical;
             }
+
             .Select {
                 width: 100%;
                 margin-bottom: 10px;

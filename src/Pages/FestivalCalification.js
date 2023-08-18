@@ -2,16 +2,14 @@ import { Button, MenuItem, Select, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import BackHand from '@mui/icons-material/ArrowBack';
 import app from '../firebase';
-import { child, get, getDatabase, push, ref } from 'firebase/database';
+import { child, get, getDatabase, push, ref, update } from 'firebase/database';
 import { Link, useParams } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 const FestivalCalification = () => {
     const { id } = useParams();
     const [dancer, setDancer] = useState({ image: null });
     const [jury, setJury] = useState(null);
     const [stateCalification, setStateCalification] = useState(false);
-    const juryCookie = Cookies.get('jury');
     const getDataDancer = () => {
         const dbRef = ref(getDatabase());
         get(child(dbRef, `dancers/${id}`)).then((snapshot) => {
@@ -52,6 +50,8 @@ const FestivalCalification = () => {
                 console.error('Error al guardar datos:', error);
             });
 
+        const userRef = child(ref(db, 'dancers'), id);
+        update(userRef, { calificado: true });
 
     };
 

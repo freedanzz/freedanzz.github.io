@@ -83,8 +83,8 @@ class FestivalPage extends React.Component {
         let dancers = this.state.dancers !== null ? (
             Object.keys(this.state.dancers).reverse().map(item => {
                 return (
-                    <Link to={`/festival-calification/${item}`}>
-                        <div class="festival__dancers__dancer">
+                    <div class="festival__dancers__dancer" className={`festival__dancers__dancer ${this.state.dancers[item].calificado ? 'calificated' : ''}`}>
+                        <Link to={`/festival-calification/${item}`}>
                             {/* {key + 1} */}
                             <div className='festival__dancers__dancer__image' style={{ backgroundImage: `url(${this.state.dancers[item].image})` }}>
                                 {/* <img alt={this.state.dancers[item].nombre_artistico} src={this.state.dancers[item].image} /> */}
@@ -95,8 +95,8 @@ class FestivalPage extends React.Component {
                             <div className='festival__dancers__dancer__subname'>
                                 {this.state.dancers[item].nombres}
                             </div>
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
                 )
             })
         ) : (
