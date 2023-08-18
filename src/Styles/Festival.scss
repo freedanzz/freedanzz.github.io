@@ -1,17 +1,21 @@
 .festival {
     display: flex;
     width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
     flex-wrap: wrap;
-    padding: 0 toRem(20);
     box-sizing: border-box;
+
     &__logo {
         width: 100%;
+
         img {
-            width: 300px;
-            margin: 0 auto toRem(30) auto;
+            width: 200px;
             display: block;
-        }   
+            margin: 20px auto;
+        }
     }
+
     &__dancers {
         display: flex;
         width: 50%;
@@ -19,37 +23,89 @@
         margin: 0 auto;
         justify-content: flex-start;
         flex-wrap: wrap;
+
+        &.theme_comprension {
+            display: grid;
+            width: auto;
+            grid-template-columns: repeat(4, auto);
+            //grid-auto-flow: column;
+            grid-gap: 10px;
+            align-self: flex-start;
+
+            a {
+                color: black;
+            }
+
+            .festival__dancers__dancer {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                align-self: center;
+
+                &__image {
+                    width: 120px;
+                    height: 120px;
+                }
+            }
+
+            .festival__dancers__dancer__name,
+            .festival__dancers__dancer__subname {
+                width: 100%;
+                margin-top: 0;
+                margin-bottom: toRem(10);
+            }
+
+            .festival__dancers__dancer__name {
+                font-size: toRem(18);
+            }
+
+            .festival__dancers__dancer__subname {
+                display: none;
+            }
+        }
+
         &__dancer {
             display: flex;
             width: calc(100% / 5 - 10px);
             justify-content: center;
             flex-wrap: wrap;
             margin: toRem(10) toRem(5);
+
             &:nth-child(odd) {
                 .festival__dancers__dancer__image {
                     border: 2px solid $color4;
                 }
             }
+
             &:nth-child(even) {
                 .festival__dancers__dancer__image {
                     border: 2px solid $color3;
                 }
             }
+
             &__image {
-                width: 120px;
-                height: 120px;
+                width: 90px;
+                height: 90px;
                 border-radius: 50%;
                 overflow: hidden;
+                background-repeat: no-repeat;
+                background-size: 100% auto;
+                background-position: center center;
+
                 img {
                     width: 100%;
                 }
             }
+
             &__name {
                 width: 100%;
                 text-align: center;
                 font-size: toRem(25);
                 margin-top: toRem(10);
             }
+
             &__subname {
                 width: 100%;
                 text-align: center;
@@ -57,16 +113,84 @@
             }
         }
     }
+
     &__form {
         width: 50%;
     }
+
     &__lottery {
         display: flex;
         width: 50%;
         align-items: center;
         flex-direction: column;
+
         button {
             width: toRem(200);
+        }
+    }
+
+    &__calification {
+        display: flex;
+        width: 100%;
+        max-width: 900px;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        justify-content: flex-end;
+
+        &__back {
+            a {
+                text-decoration: none;
+            }
+        }
+
+        &__title {
+            width: 100%;
+            font-size: toRem(40);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        &__dancer {
+            display: flex;
+            width: 40%;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: wrap;
+
+            &__image {
+                width: 200px;
+                height: 200px;
+                background-repeat: no-repeat;
+                background-size: cover;
+                border-radius: 50%;
+                background-position: center center;
+            }
+
+            &__name {
+                width: 100%;
+                text-align: center;
+                font-size: toRem(30);
+            }
+        }
+
+        &__jury {
+            display: flex;
+            width: 60%;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            .MuiFormControl-root {
+                width: calc(50% - 10px);
+                margin-bottom: 10px;
+            }
+            .Textarea {
+                width: 100%;
+                resize: vertical;
+            }
+            .Select {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
     }
 }

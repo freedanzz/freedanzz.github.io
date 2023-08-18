@@ -9,6 +9,18 @@
 @import 'Dancer';
 @import 'Festival';
 
+*,
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+body {
+  background-image: url("../Images/back_body.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
 
 h2 {
   color: $color2;
@@ -20,10 +32,12 @@ h2 {
 .wrapScreenHome {
   width: 100%;
   background-color: #000000;
+
   .wrapMainHome {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
+
     img {
       width: 100%;
     }

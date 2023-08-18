@@ -1,22 +1,25 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import firebase from 'firebase/app';
-import { ref, set, getDatabase, push, onValue  } from 'firebase/database';
+import { ref, set, getDatabase, push, onValue } from 'firebase/database';
 
 // IMAGE
 import LogoIMG from '../Images/logov1.png';
-import { Button } from '@mui/material';
+import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import app from '../firebase';
+import RoulleteDancers from '../Components/Roullete/Roullete';
+import { Link } from 'react-router-dom';
 
 const db = getDatabase(app);
 const dancersDB = ref(db, 'dancers');
-const scoresDB = ref(db, 'scores');
+// const scoresDB = ref(db, 'scores');
 
 class FestivalPage extends React.Component {
-    
+
     state = {
         dancers: null,
-        lotteryDancer: null
+        lotteryDancer: null,
+        mustSpin: false
     }
 
     componentDidMount() {
@@ -33,11 +36,11 @@ class FestivalPage extends React.Component {
             nombres: names,
             nombre_artistico: name_art,
             image: `https://drive.google.com/uc?id=${id_image}`,
-          };
+        };
 
-          console.log("Hola", datos);
-        
-          // Utiliza la función "push" para guardar los datos en una nueva referencia
+        console.log("Hola", datos);
+
+        // Utiliza la función "push" para guardar los datos en una nueva referencia
         push(dancersDB, datos)
             .then(() => {
                 console.log('Datos guardados en la base de datos');
@@ -55,39 +58,45 @@ class FestivalPage extends React.Component {
                 ...datos
             }
             console.log('Datos actuales:', arrayDancers);
-            this.setState({dancers: arrayDancers})
+            this.setState({ dancers: arrayDancers });
+            console.log("Dancers", arrayDancers);
         });
     }
 
     randomDancer = async () => {
-        const generateDancerRandom = setInterval(() => {
+        this.setState({ mustSpin: true })
+
+        /*const generateDancerRandom = setInterval(() => {
             const dancersLength = Object.keys(this.state.dancers).length;
             let random = Math.floor(Math.random() * dancersLength);
             let randomDancer = Object.keys(this.state.dancers)[random];
-            this.setState({lotteryDancer: randomDancer});
+            this.setState({ lotteryDancer: randomDancer });
             console.log("Bailarín aleatorio", randomDancer);
-        },100);
+        }, 100);
 
         setTimeout(() => {
             clearInterval(generateDancerRandom);
-        }, 5000);
+        }, 5000);*/
     }
 
     render() {
         let dancers = this.state.dancers !== null ? (
-            Object.keys(this.state.dancers).map(item => {
+            Object.keys(this.state.dancers).reverse().map(item => {
                 return (
-                    <div class="festival__dancers__dancer">
-                        <div className='festival__dancers__dancer__image'>
-                            <img alt={this.state.dancers[item].nombre_artistico} src={this.state.dancers[item].image} />
+                    <Link to={`/festival-calification/${item}`}>
+                        <div class="festival__dancers__dancer">
+                            {/* {key + 1} */}
+                            <div className='festival__dancers__dancer__image' style={{ backgroundImage: `url(${this.state.dancers[item].image})` }}>
+                                {/* <img alt={this.state.dancers[item].nombre_artistico} src={this.state.dancers[item].image} /> */}
+                            </div>
+                            <div className='festival__dancers__dancer__name'>
+                                {this.state.dancers[item].nombre_artistico}
+                            </div>
+                            <div className='festival__dancers__dancer__subname'>
+                                {this.state.dancers[item].nombres}
+                            </div>
                         </div>
-                        <div className='festival__dancers__dancer__name'>
-                            {this.state.dancers[item].nombre_artistico}
-                        </div>
-                        <div className='festival__dancers__dancer__subname'>
-                            {this.state.dancers[item].nombres}
-                        </div>
-                    </div>
+                    </Link>
                 )
             })
         ) : (
@@ -117,14 +126,14 @@ class FestivalPage extends React.Component {
                     <div className='festival__logo'>
                         <img alt="Logo" src={LogoIMG} />
                     </div>
-                    {/* <div className='festival__form'>
+                    {false && (<div className='festival__form'>
                         <Container component="main" maxWidth="xs">
                             <Box
                                 sx={{
-                                marginTop: 8,
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
+                                    marginTop: 8,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
                                 }}
                             >
                                 <Typography component="h1" variant="h5">
@@ -152,7 +161,6 @@ class FestivalPage extends React.Component {
                                     />
                                     <TextField
                                         margin="normal"
-                                        required
                                         fullWidth
                                         name="id_image"
                                         label="Id de imágen"
@@ -171,11 +179,13 @@ class FestivalPage extends React.Component {
                                 </form>
                             </Box>
                         </Container>
-                    </div> */}
-                    <div className='festival__dancers'>
+                    </div>)}
+                    {/* TEMAS: theme_comprension */}
+                    <div className='festival__dancers theme_comprension'>
                         {dancers}
                     </div>
-                    <div className='festival__lottery'>
+                    {false && (<div className='festival__lottery'>
+                        <RoulleteDancers spin={this.state.mustSpin} />
                         {lottery}
                         <Button
                             type="button"
@@ -187,7 +197,7 @@ class FestivalPage extends React.Component {
                         >
                             Sortear bailarín
                         </Button>
-                    </div>
+                    </div>)}
                 </div>
             </>
         )
