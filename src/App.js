@@ -23,6 +23,7 @@ import { getMessaging, onMessage } from "firebase/messaging";
 import app from './firebase';
 import FestivalPage from "./Pages/FestivalPage";
 import FestivalCalification from "./Pages/FestivalCalification";
+import FestivalClassified from "./Pages/FestivalClassified";
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/festival" element={<FestivalPage />} />
           <Route path="/festival-calification/:id" element={<FestivalCalification />} />
+          <Route path="/festival-classified" element={<FestivalClassified />} />
           <Route path='*' exact={true} element={<Page404 />} />
         </Routes>
       </Router>

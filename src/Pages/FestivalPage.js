@@ -80,8 +80,10 @@ class FestivalPage extends React.Component {
     }
 
     render() {
+        let countCalificado = 0;
         let dancers = this.state.dancers !== null ? (
             Object.keys(this.state.dancers).reverse().map(item => {
+                countCalificado = this.state.dancers[item].calificado ? countCalificado + 1 : countCalificado;
                 return (
                     <div class="festival__dancers__dancer" className={`festival__dancers__dancer ${this.state.dancers[item].calificado ? 'calificated' : ''}`}>
                         <Link to={`/festival-calification/${item}`}>
@@ -183,6 +185,11 @@ class FestivalPage extends React.Component {
                     {/* TEMAS: theme_comprension */}
                     <div className='festival__dancers theme_comprension'>
                         {dancers}
+                        {countCalificado == 13 && (
+                            <div className='classified'>
+                                <Link className='link--classified' to={`/festival-classified`}>VER CLASIFICADOS</Link>
+                            </div>
+                        )}
                     </div>
                     {false && (<div className='festival__lottery'>
                         <RoulleteDancers spin={this.state.mustSpin} />
