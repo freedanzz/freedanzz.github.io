@@ -55,11 +55,14 @@ const FestivalClassified = () => {
     }, []);
 
     let dancers = dancersClassified !== null ? (
-        dancersClassified.sort((a, b) => a.score > b.score ? -1 : 1).slice(0, 5).map(item => {
+        dancersClassified.sort((a, b) => a.score > b.score ? -1 : 1).slice(0, 6).map(item => {
             return (
                 <div className='festival__classified__dancers__dancer'>
                     <div className='dancer--image' style={{ backgroundImage: `url(${item.image})` }}></div>
                     <div className='dancer--name'>{item.nombre_artistico}</div>
+                    <div className='dancer--score'>
+                        Puntaje final: <b>{item.score}/60</b>
+                    </div>
                 </div>
             )
         })

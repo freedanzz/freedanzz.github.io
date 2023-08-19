@@ -52,6 +52,7 @@
                     padding: 10px 20px;
                     font-size: toRem(30);
                     border-radius: 5px;
+                    z-index: 3;
                 }
             }
 
@@ -223,6 +224,11 @@
             .dancer--name {
                 font-size: toRem(30);
                 text-align: center;
+            }
+
+            .dancer--score {
+                text-align: center;
+                font-size: toRem(15);
             }
         }
 
